@@ -15,10 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->json('info')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('org_id')->default(0);
+            $table->string('ref_key', 64);
+            $table->string('skud_key', 64);
+            $table->tinyInteger('role')->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
