@@ -5,16 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Journal;
 use App\Models\User;
+use App\Services\Course\CourseJournalService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class JournalController extends BaseController
 {
-    public function store(Request $request)
+    public function checkIn(string $key, Request $request)
     {
-        $key = $request->get('key');
+        $user = User::with('courses')
+        ->where('skud_uuid', $key)
+        ->first();
+
+        if(!$user){
+            return 'error';
+        }
+
+        $journalService = CourseJournalService::make();
+        $journal = $journalService->userCheckIn($user);
+        if($journal){
+            return response('ok');
+        }
 
         return response('error');
     }
-
 }
