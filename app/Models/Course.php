@@ -31,7 +31,7 @@ class Course extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'info' => 'array',
+        'json_data' => 'object',
         'schedule' => 'object',
     ];
 

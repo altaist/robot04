@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('course_user', function (Blueprint $table) {
             $table->unsignedInteger('course_id')->index()->comment('Course id');
             $table->unsignedInteger('user_id')->index()->comment('User id');
+            $table->tinyInteger('role_id')->default(0);
             $table->unsignedTinyInteger('state')->default(0);
             $table->timestamps();
 

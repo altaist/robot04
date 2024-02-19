@@ -42,7 +42,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'info' => 'object'
+        'json_data' => 'object'
     ];
 
     public function courses(): BelongsToMany

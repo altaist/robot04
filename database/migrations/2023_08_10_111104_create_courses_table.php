@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('title', 256);
+            $table->unsignedInteger('teacher_id')->index()->comment("Teacher user_id");
             $table->unsignedInteger('product_id')->nullable();
             $table->string('is_online')->default(false)->comment('Online or offline');
             $table->tinyInteger('state')->default(0);
             $table->unsignedSmallInteger('max_users_num')->default(0);
-            $table->json('info')->nullable();
+            $table->json('json_data')->nullable();
             $table->json('schedule');
             $table->timestamp('date_from')->nullable();
             $table->timestamp('date_to')->nullable();

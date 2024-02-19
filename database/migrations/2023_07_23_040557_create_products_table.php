@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('summary', 256)->comment('Product summary');
             $table->string('description', 1024)->nullable()->comment('Product description');
             $table->string('img')->nullable()->comment('Product default img');
-            $table->json('info')->nullable()->comment('Product content');
+            $table->json('json_data')->nullable()->comment('Product content');
 
             $table->unsignedInteger('parent_id')->nullable()->comment('Parent product');
             $table->unsignedInteger('author_user_id')->nullable()->comment('Product author');
