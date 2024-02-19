@@ -14,12 +14,14 @@ class JournalController extends BaseController
     public function checkIn(string $key, Request $request)
     {
         $user = User::with('courses')
-        ->where('skud_uuid', $key)
+        ->where('external_key', $key)
         ->first();
+
 
         if(!$user){
             return 'error';
         }
+//        dd($user, $key);
 
         $journalService = CourseJournalService::make();
         $journal = $journalService->userCheckIn($user);

@@ -19,15 +19,22 @@ class CourseService extends BaseService
 
     public function getCurrentlyActiveCourses(Collection $courses)
     {
-        $activeCourse = $courses->where(function ($course) {
-            return $this->checkCourseIsActual($course, now());
-        })->first();
+        $date = now();
+
+        $activeCourse = $courses->firstWhere(function ($course) use($date) {
+            return $this->checkCourseIsActual($course, $date);
+        });
+        //dd($courses->count(), $activeCourse);
 
         return $activeCourse;
     }
 
     public function checkCourseIsActual(Course $course, Carbon $byDate = null): bool
     {
+        $r = CourseScheduleService::checkScheduleIsActual($course->schedule, $byDate);
+        //dd($course->schedule, $byDate, $r);
+        //print_r("$course->id $r \n");
+        return $r;
         return CourseScheduleService::checkScheduleIsActual($course->schedule, $byDate);
     }
 

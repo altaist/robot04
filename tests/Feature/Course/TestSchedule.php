@@ -3,6 +3,7 @@
 namespace Tests\Feature\Course;
 
 use App\Models\Course;
+use App\Services\Course\CourseScheduleService;
 use App\Services\Course\CourseService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,7 +14,7 @@ class TestSchedule extends TestCase
 {
     public function test_schedule_is_actual(): void
     {
-        $schedule1 = [
+        $schedule1 = (object)[
             'monthes' => [9, 10, 11, 12, 1, 2, 3, 4, 5],
             'weeks' => [],
             'days' => [
@@ -21,11 +22,11 @@ class TestSchedule extends TestCase
             ]
         ];
 
-        $schedule2 = [
+        $schedule2 = (object)[
             'days2' => []
         ];
 
-        $schedule3 = [
+        $schedule3 = (object)[
             'monthes' => [9, 10, 11, 12, 1, 2, 3, 4, 5],
             'weeks' => [],
             'days' => [
@@ -33,45 +34,38 @@ class TestSchedule extends TestCase
             ]
         ];
 
-        $service = CourseService::make();
-
-        $course = new Course();
-        $course->schedule = $schedule1;
-
-        //dd($course->schedule);
+        $service = CourseScheduleService::make();
 
         $date = Carbon::today()->isoWeekday(2)->hours(12)->minute(0);
-        $this->assertTrue($service->checkCourseIsActual($course, $date));
+        $this->assertTrue($service->checkScheduleIsActual($schedule1, $date));
 
         $date = Carbon::today()->isoWeekday(2)->hours(13)->minute(0);
-        $this->assertTrue($service->checkCourseIsActual($course, $date));
+        $this->assertTrue($service->checkScheduleIsActual($schedule1, $date));
 
         $date = Carbon::today()->isoWeekday(2)->hours(14)->minute(0);
-        $this->assertTrue($service->checkCourseIsActual($course, $date));
+        $this->assertTrue($service->checkScheduleIsActual($schedule1, $date));
 
         $date = Carbon::today()->isoWeekday(6)->hours(10)->minute(30);
-        $this->assertTrue($service->checkCourseIsActual($course, $date));
+        $this->assertTrue($service->checkScheduleIsActual($schedule1, $date));
 
         $date = Carbon::today()->isoWeekday(2)->hours(11)->minute(59);
-        $this->assertFalse($service->checkCourseIsActual($course, $date));
+        $this->assertFalse($service->checkScheduleIsActual($schedule1, $date));
 
         $date = Carbon::today()->isoWeekday(2)->hours(14)->minute(1);
-        $this->assertFalse($service->checkCourseIsActual($course, $date));
+        $this->assertFalse($service->checkScheduleIsActual($schedule1, $date));
 
         $date = Carbon::today()->isoWeekday(1)->hours(13)->minute(0);
-        $this->assertFalse($service->checkCourseIsActual($course, $date));
+        $this->assertFalse($service->checkScheduleIsActual($schedule1, $date));
 
         $date = Carbon::today()->isoWeekday(1)->hours(13)->minute(0);
-        $this->assertFalse($service->checkCourseIsActual($course, $date));
+        $this->assertFalse($service->checkScheduleIsActual($schedule1, $date));
 
-        $course->schedule = $schedule2;
         $date = Carbon::today()->isoWeekday(2)->hours(13)->minute(0);
-        $this->assertFalse($service->checkCourseIsActual($course, $date));
+        $this->assertFalse($service->checkScheduleIsActual($schedule2, $date));
 
-        $course->schedule = $schedule3;
         $date = Carbon::today()->isoWeekday(2)->hours(13)->minute(0);
-        $this->assertFalse($service->checkCourseIsActual($course, $date));
+        $this->assertFalse($service->checkScheduleIsActual($schedule3, $date));
         $date = Carbon::today()->isoWeekday(6)->hours(13)->minute(0);
-        $this->assertFalse($service->checkCourseIsActual($course, $date));
+        $this->assertFalse($service->checkScheduleIsActual($schedule3, $date));
     }
 }

@@ -28,13 +28,13 @@ class CourseJournalService extends BaseService
         $recentRequestsCount = Journal::query()
             ->where('user_id', $user->id)
             ->where('course_id', $activeCourse->id)
-            ->where('created_at', '>', now()->subMinutes(15))
+            ->where('created_at', '>', now()->subMinutes(30))
             ->count();
 
         if ($recentRequestsCount) {
             return null;
         }
-        $journal = Journal::create(['user_id' => $user->id, 'course_id' => $activeCourse->id]);
+        $journal = Journal::create(['user_id' => $user->id, 'course_id' => $activeCourse->id, "lesson_id"=>0]);
         return $journal;
     }
 }
