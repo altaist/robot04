@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('course_user', function (Blueprint $table) {
-            $table->unsignedInteger('course_id')->comment('Course id');
-            $table->unsignedInteger('user_id')->comment('User id');
+            $table->unsignedInteger('course_id')->index()->comment('Course id');
+            $table->unsignedInteger('user_id')->index()->comment('User id');
             $table->unsignedTinyInteger('state')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 

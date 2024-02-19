@@ -19,7 +19,7 @@ return new class extends Migration
             $table->tinyInteger('state')->default(0);
             $table->unsignedSmallInteger('max_users_num')->default(0);
             $table->json('info')->nullable();
-            $table->json('schedule'); // {'monthes'=> [9,10,11,12,1,2,3,4,5], 'weeks'=>[]', 'days' => [[],['12:00','14:00'],[],[],[],['10:00','11:00'],[]]}
+            $table->json('schedule');
             $table->timestamp('date_from')->nullable();
             $table->timestamp('date_to')->nullable();
             $table->timestamp('date_sign_to')->nullable();
