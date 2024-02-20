@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->json('json_data')->nullable();
@@ -23,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('org_id')->default(0);
             $table->string('ref_key', 32)->unique();
             $table->string('external_key', 6)->unique();
+            $table->string('skud_key', 32)->nullable();
             $table->tinyInteger('role_id')->default(0);
             $table->rememberToken();
             $table->timestamps();

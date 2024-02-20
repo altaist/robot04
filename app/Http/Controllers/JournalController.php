@@ -31,4 +31,15 @@ class JournalController extends BaseController
 
         return response('error');
     }
+
+    public function index()
+    {
+        $journal = Journal::with('journalable', 'user')
+            ->orderBy('journalable_type')
+            ->orderBy('journalable_id')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+        //dd($journal[0]->journalable);
+        return view('edu/journal', ["items"=>$journal]);
+    }
 }

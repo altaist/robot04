@@ -21,6 +21,8 @@ abstract class CsvSeeder extends Seeder
 
     public $columns = null;
 
+    public $needTruncate = true;
+
     public function run()
     {
         $batchInserts = $this->getCsvRecords();
@@ -30,7 +32,9 @@ abstract class CsvSeeder extends Seeder
             return;
         }
 
-        DB::table($this->table)->truncate();
+        if($this->needTruncate){
+            DB::table($this->table)->truncate();
+        }
         foreach (array_chunk($batchInserts, 1000) as $chunk) {
             DB::table($this->table)->insert(
                 $chunk

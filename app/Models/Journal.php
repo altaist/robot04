@@ -16,4 +16,14 @@ class Journal extends Model
         'course_id',
         'lesson_id'
     ];
+
+    public function journalable()
+    {
+        return $this->morphTo();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
