@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Course\CourseJournalService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Inertia\Inertia;
 
 class JournalController extends BaseController
 {
@@ -40,6 +41,7 @@ class JournalController extends BaseController
             ->orderBy('updated_at', 'desc')
             ->get();
         //dd($journal[0]->journalable);
-        return view('edu/journal', ["items"=>$journal]);
+        //return view('edu/journal', ["items"=>$journal]);
+        return Inertia::render('Course/Journal', ['journal' => $journal]);
     }
 }
