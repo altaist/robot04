@@ -2,7 +2,6 @@
     <Head title="Journal" />
 
     <Layout title="Журнал" @fab:click="onFabClick">
-{{ page }}
         <template v-slot:page>
             <h4>Журнал активности</h4>
             <div v-for="item in journal" class="q-mt-lg">

@@ -56,6 +56,6 @@ class JournalController extends BaseController
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        return $this->inertiaFromResource('Journal/TestJournal', JournalResource::collection($journalCollection));
+        return $this->inertiaFromResource('Journal/Journal', JournalResource::collection($journalCollection));
     }
 }

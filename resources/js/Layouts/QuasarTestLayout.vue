@@ -3,7 +3,7 @@
 
         <q-header reveal elevated class="bg-primary text-white">
             <q-toolbar>
-                <!--q-btn dense flat round icon="keyboard_arrow_left" @click="toggleLeftDrawer" /-->
+                <q-btn dense flat round icon="keyboard_arrow_left" @click="toggleLeftDrawer" />
 
                 <q-toolbar-title>
                     <!--q-avatar>
@@ -14,6 +14,8 @@
             </q-toolbar>
         </q-header>
 
+        <!--q-drawer v-model="" side="left" behavior="desktop" bordered>
+        </q-drawer-->
         <q-drawer v-model="leftDrawerOpen" :width="200" :breakpoint="500" behavior="desktop" bordered :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
             <q-scroll-area class="fit">
                 <q-list>
@@ -36,11 +38,19 @@
         <q-page-container>
             <q-page padding>
                 <slot name="page"></slot>
-
                 <!--q-page-sticky position="bottom-right" :offset="[18, 18]">
-                    <q-fab icon="add" color="accent" @click="onFabClick">
-                </q-fab>
+                    <q-fab v-model="fab1" label-position="left" color="purple" icon="keyboard_arrow_right" direction="up" >
+                        <q-fab-action color="primary" @click="onClick" icon="mail" label="Email" />
+                        <q-fab-action color="secondary" @click="onClick" icon="alarm" label="Alarm" />
+                    </q-fab>
                 </q-page-sticky-->
+                <q-page-sticky position="bottom-right" :offset="[18, 18]">
+                    <!--q-btn fab icon="add" color="accent" @click="onFabClick"/-->
+                    <q-fab icon="add" color="accent" @click="onFabClick">
+                        <!--q-fab-action @click="onFabClick" color="primary" icon="person_add" />
+                        <q-fab-action @click="onClick" color="primary" icon="mail" /-->
+                    </q-fab>
+                </q-page-sticky>
                 <q-page-scroller position="bottom-left" :scroll-offset="150" :offset="[18, 18]">
                     <q-btn fab icon="keyboard_arrow_up" color="accent" />
                 </q-page-scroller>
