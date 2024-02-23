@@ -4,18 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Journal extends Model
 {
-    use HasFactory;
-
     protected $table = "journal";
 
     protected $fillable = [
         'user_id',
-        'course_id',
-        'lesson_id'
+        'journalable_type',
+        'journalable_id'
     ];
 
     public function journalable()
@@ -23,8 +22,13 @@ class Journal extends Model
         return $this->morphTo();
     }
 
-    public function users(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeForUser($query, User $user)
+    {
+        return $query->where('user_id' === $user);
     }
 }

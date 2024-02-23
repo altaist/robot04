@@ -20,7 +20,7 @@ class CourseScheduleService extends BaseService
             return false;
         }
 
-        $currentDate = $byDate ?? now();
+        $currentDate = ($byDate ?? now()) -> utc();
         $weekday = $currentDate->isoWeekday() - 1;
 
         $day = data_get($days, $weekday);
@@ -30,8 +30,8 @@ class CourseScheduleService extends BaseService
 
 
         try {
-            $dateFrom = Carbon::createFromFormat('H:i', data_get($day, 0), self::$timeZone)->setDateFrom($currentDate);
-            $dateTo = Carbon::createFromFormat('H:i', data_get($day, 1), self::$timeZone)->setDateFrom($currentDate);
+            $dateFrom = Carbon::createFromFormat('H:i', data_get($day, 0))->setDateFrom($currentDate);
+            $dateTo = Carbon::createFromFormat('H:i', data_get($day, 1))->setDateFrom($currentDate);
             // dd($dateFrom->toString(), $dateTo->toString(), $currentDate->toString(), $currentDate->betweenIncluded($dateFrom, $dateTo));
             return $currentDate->betweenIncluded($dateFrom, $dateTo);
         } catch (\Throwable $th) {

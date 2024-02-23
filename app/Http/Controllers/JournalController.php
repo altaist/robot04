@@ -13,25 +13,24 @@ use Illuminate\Http\Request;
 
 class JournalController extends BaseController
 {
-    public function checkIn(string $key, Request $request)
+    public function checkInByCardKey(string $key, Request $request)
     {
         $user = User::with('courses')
-        ->where('external_key', $key)
-        ->first();
+            ->where('skud_key', $key)
+            ->first();
 
 
         if(!$user){
-            return 'error';
+            return 'Error: Wrong card';
         }
-//        dd($user, $key);
 
         $journalService = CourseJournalService::make();
         $journal = $journalService->userCheckIn($user);
         if($journal){
-            return response('ok');
+            return response($user->first_name);
         }
 
-        return response('error');
+        return response('Error: We are closed');
     }
 
     public function userLessonCheckIn(string $lessonId, string $userId)

@@ -43,13 +43,7 @@ class CourseTest extends BaseTestCase
 
     }
 
-    public function test_course_checkin(): void
-    {
-        $response = $this->get('/api/checkin/AJV0');
 
-        $response->assertStatus(200);
-        $response->assertContent("error");
-    }
 
 */
 }

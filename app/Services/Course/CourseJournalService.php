@@ -25,16 +25,17 @@ class CourseJournalService extends BaseService
 
     public function updateJournalForUserCheckIn(User $user, Course $activeCourse)
     {
-        $recentRequestsCount = Journal::query()
+        $journal = $activeCourse
+            ->journalRecords()
             ->where('user_id', $user->id)
-            ->where('course_id', $activeCourse->id)
             ->where('created_at', '>', now()->subMinutes(30))
-            ->count();
+            ->latest()
+            ->first();
 
-        if ($recentRequestsCount) {
-            return null;
+        if (!$journal) {
+            $journal = Journal::create(['user_id' => $user->id, 'journalable_type' => 'course', 'journalable_id' => $activeCourse->id]);
         }
-        $journal = Journal::create(['user_id' => $user->id, 'course_id' => $activeCourse->id, "lesson_id"=>0]);
+
         return $journal;
     }
 }
