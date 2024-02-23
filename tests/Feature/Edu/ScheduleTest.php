@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Course;
+namespace Tests\Feature\Edu;
 
 use App\Models\Course;
 use App\Services\Course\CourseScheduleService;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
-class TestSchedule extends TestCase
+class ScheduleTest extends TestCase
 {
     public function test_schedule_is_actual(): void
     {

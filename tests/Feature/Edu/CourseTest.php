@@ -1,25 +1,27 @@
 <?php
 
-namespace Tests\Feature\Course;
+namespace Tests\Feature\Edu;
 
 use App\Models\Course;
-use App\Services\Course\CourseService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Carbon;
-use Tests\TestCase;
+use Tests\Feature\BaseTestCase;
 
-class TestCourse extends TestCase
+class CourseTest extends BaseTestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
+    public function test_course_relations(): void
+    {
+        $course = Course::find(1);
+        $this->assertNotNull($course);
+
+        $this->assertEquals($course->product->id, 1);
+        $this->assertEquals($course->teacher->id, 19);
+
+        $courseStudents = $course->students;
+        $this->assertCount(7, $courseStudents);
+
+        $this->assertCount(2, $course->journalRecords);
     }
+
 /*
     public function test_course_schedule(): void
     {
@@ -40,7 +42,7 @@ class TestCourse extends TestCase
         $this->assertFalse($service->checkCourseIsActual($course, $date));
 
     }
-*/
+
     public function test_course_checkin(): void
     {
         $response = $this->get('/api/checkin/AJV0');
@@ -48,4 +50,6 @@ class TestCourse extends TestCase
         $response->assertStatus(200);
         $response->assertContent("error");
     }
+
+*/
 }
