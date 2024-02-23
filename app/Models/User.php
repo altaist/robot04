@@ -50,4 +50,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class);
 
     }
+
+    public function journalCourses()
+    {
+        return $this->morphedByMany(Course::class, 'journalable', 'journal');
+    }
+
+    public function journalLessons()
+    {
+        return $this->morphedByMany(Lesson::class, 'journalable', 'journal');
+    }
 }

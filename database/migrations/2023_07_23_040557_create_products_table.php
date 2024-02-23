@@ -21,7 +21,7 @@ return new class extends Migration
             $table->json('json_data')->nullable()->comment('Product content');
 
             $table->unsignedInteger('parent_id')->nullable()->comment('Parent product');
-            $table->unsignedInteger('author_user_id')->nullable()->comment('Product author');
+            $table->unsignedInteger('author_id')->nullable()->comment('Product author');
             $table->unsignedInteger('org_id')->nullable()->comment('Product organization');
             $table->unsignedSmallInteger('category_id')->nullable()->comment('Product category');
             $table->unsignedSmallInteger('state')->nullable()->comment('Product state');
