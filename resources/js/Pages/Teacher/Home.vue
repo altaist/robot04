@@ -1,12 +1,27 @@
 <template>
     <Head title="Группы" />
 
-    <Layout title="Группы" @fab:click="onFabClick">
+    <Layout title="Учитель" @fab:click="onFabClick">
 
         <template v-slot:page>
 
             <div>
-                <div>
+                <div class="q-my-md">
+                    <q-list bordered separator>
+                        <q-item v-for="item in courses" v-ripple class="q-pa-md" :href="route('teacher.lesson', item.id)">
+                            <q-item-section>
+                                <q-item-label>{{ item.title || "Группа " }} </q-item-label>
+                                <q-item-label caption>{{ item.created_at }}</q-item-label>
+                                <q-item-label caption>{{ showSchedule(item.schedule) }}</q-item-label>
+                            </q-item-section>
+
+                        </q-item>
+                        <q-inner-loading :showing="showLoading">
+                            <q-spinner-gears size="50px" color="primary" />
+                        </q-inner-loading>
+                    </q-list>
+                </div>
+                <div v-if="false">
                     <q-table title="Мои группы" :rows="courses" :columns="columns" :pagination="{ rowsPerPage: 50 }" row-key="id" style="font-size: 20px">
                         <template v-slot:header-cell="props">
                             <q-th :props="props" style="font-size: large">
@@ -19,7 +34,7 @@
                                     {{ props.row.pos }}
                                 </q-td>
                                 <q-td key="course" :props="props">
-                                    <a :href="'/teacher/course/'+props.row.id+''">{{ props.row.title }}</a>
+                                    <a :href="'/teacher/course/' + props.row.id + ''">{{ props.row.title }}</a>
                                 </q-td>
                                 <q-td key="teacher" :props="props">
                                     {{ props.row.teacher.name }}
@@ -38,6 +53,7 @@
 </template>
 
 <script setup>
+import { ref, computed, reactive } from 'vue'
 import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
@@ -48,14 +64,16 @@ console.log(page.props.data);
 const courses = page.props.data;
 let currentTitle = "";
 
-const updateSectionTitle = (title) => {
-    currentTitle = title;
-    return true;
-};
+const loading = ref(false);
+const showLoading = ref(false);
+const dialogFormEdit = ref(false);
+
 
 const onFabClick = (arg) => {
     console.log('click');
 }
+
+const showSchedule = val => JSON.stringify(val);
 
 const columns = [
     {

@@ -15,7 +15,7 @@
                 <q-list bordered separator>
                     <q-item v-for="item in lessons" v-ripple class="q-pa-md" :href="route('teacher.lesson', item.id)">
                         <q-item-section>
-                            <q-item-label>{{ "Занятие " + date.formatDate(item.created_at, 'DD.MM') }} </q-item-label>
+                            <q-item-label>{{ item.title || "Занятие " + date.formatDate(item.created_at, 'DD.MM') }} </q-item-label>
                             <q-item-label caption>{{ item.created_at }}</q-item-label>
                         </q-item-section>
 

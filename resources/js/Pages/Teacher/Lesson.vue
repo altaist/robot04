@@ -8,12 +8,12 @@
                 <q-breadcrumbs>
                     <q-breadcrumbs-el label="Учитель" :href="route('teacher.home')" />
                     <q-breadcrumbs-el :label="'Группа ' +lesson.course.title" :href="route('teacher.course', lesson.course.id)" />
-                    <q-breadcrumbs-el label="Занятие" />
+                    <q-breadcrumbs-el :label="lesson.title || 'Занятие ' + date.formatDate(lesson.created_at, 'DD.MM')" />
                 </q-breadcrumbs>
             </div>
             <div class="q-my-lg">
                 <!--div><a :href="'/teacher/course/'+lesson.course.id">{{ lesson.course.title }}</a><br/></div-->
-                <div class="text-h4">{{ lesson.title || "Занятие " + date.formatDate(lesson.created_at, 'DD.MM') }}</div>
+                <div class="text-h4">Ученики</div>
             </div>
             <div>
                 <q-list bordered separator>
@@ -33,7 +33,7 @@
             </div>
 
             <div>
-                <h6>Не записанные в группу:</h6>
+                <h4>Не записанные:</h4>
                 <q-list bordered separator>
                     <q-item v-for="item in nonCourseStudents" v-ripple>
                         <q-item-section>
