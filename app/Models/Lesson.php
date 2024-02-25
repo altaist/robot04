@@ -30,12 +30,12 @@ class Lesson extends Model
 
     public function students(): MorphToMany
     {
-        return $this->morphToMany(User::class, 'journalable', 'journal');
+        return $this->morphToMany(User::class, 'journalable', 'journal')->withTimestamps();
     }
 
     public function journalRecords(): MorphMany
     {
-        return $this->morphMany(Journal::class, 'journalable');
+        return $this->morphMany(Journal::class, 'journalable')->withTimestamps();
     }
 
 }

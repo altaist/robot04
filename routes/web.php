@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\Lesson\LessonController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +23,15 @@ Route::get('/', function () {
     return view('robots');
 });
 
-Route::get('/journal', [JournalController::class, 'index']);
+Route::prefix('teacher')->group(function () {
+    Route::get('journal', [JournalController::class, 'index']);
+    Route::get('home', [CourseController::class, 'index'])->name('teacher.home');
+    Route::get('course/{courseId}', [CourseController::class, 'show'])->name('teacher.course');
+    Route::get('lesson/{lessonId}', [LessonController::class, 'show'])->name('teacher.lesson');
+    Route::post('lesson', [LessonController::class, 'store'])->name('lesson.store');
+    Route::post('lesson/{lessonId}/toggle', [LessonController::class, 'toggle'])->name('lesson.students.toggle');
+    Route::post('lesson/{lessonId}/students/sync', [LessonController::class, 'syncStudents'])->name('lesson.students.sync');
+});
 
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
