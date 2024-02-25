@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('product_id')->nullable();
             $table->string('is_online')->default(false)->comment('Online or offline');
             $table->tinyInteger('state')->default(0);
+            $table->tinyInteger('pos')->default(0);
             $table->unsignedSmallInteger('max_users_num')->default(0);
             $table->json('json_data')->nullable();
             $table->json('schedule');
