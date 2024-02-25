@@ -8,7 +8,7 @@
             <div>
                 <div class="q-my-md">
                     <q-list bordered separator>
-                        <q-item v-for="item in courses" v-ripple class="q-pa-md" :href="route('teacher.lesson', item.id)">
+                        <q-item v-for="item in courses" v-ripple class="q-pa-md" :href="route('teacher.course', item.id)">
                             <q-item-section>
                                 <q-item-label>{{ item.title || "Группа " }} </q-item-label>
                                 <q-item-label caption>{{ item.created_at }}</q-item-label>
