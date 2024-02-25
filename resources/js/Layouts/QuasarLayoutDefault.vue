@@ -37,10 +37,10 @@
             <q-page padding>
                 <slot name="page"></slot>
 
-                <!--q-page-sticky position="bottom-right" :offset="[18, 18]">
-                    <q-fab icon="add" color="accent" @click="onFabClick">
-                </q-fab>
-                </q-page-sticky-->
+                <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="fab">
+                    <q-fab icon="add" color="primary" @click="onFabClick"/>
+
+                </q-page-sticky>
                 <q-page-scroller position="bottom-left" :scroll-offset="150" :offset="[18, 18]">
                     <q-btn fab icon="keyboard_arrow_up" color="accent" />
                 </q-page-scroller>
@@ -62,9 +62,7 @@
             </q-toolbar>
         </q-footer>
     </q-layout>
-    <q-dialog v-model="dialogFormEdit">
-        <slot name="dialog_form_edit"/>
-    </q-dialog>
+
 </template>
 
 <script setup>
@@ -72,8 +70,9 @@ import { ref } from 'vue'
 
 
 defineProps({
-    showFab: {
+    fab: {
         type: Boolean,
+        default: false
     },
     title: {
         type: String,
@@ -92,7 +91,6 @@ const toggleLeftDrawer = () => {
 }
 
 const onFabClick = (arg) => {
-    dialogFormEdit.value = !dialogFormEdit.value;
     emit('fab:click', arg);
 }
 

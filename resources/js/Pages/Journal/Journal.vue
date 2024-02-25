@@ -7,15 +7,15 @@
             <h4>Журнал активности</h4>
 
             <div>
-                <div class="q-pa-md">
-                    <q-table title="Последние регистрации" :rows="journal" :columns="columns" row-key="name" style="font-size: 20px">
-                        <template v-slot:header-cell="props">
-                            <q-th :props="props" style="font-size: large">
-                                {{ props.col.label }}
-                            </q-th>
-                        </template>
-                    </q-table>
-                </div>
+
+                <q-table title="Последние регистрации" :rows="journal" :columns="columns" :pagination="{ rowsPerPage: 50 }" row-key="name" style="font-size: 20px">
+                    <template v-slot:header-cell="props">
+                        <q-th :props="props" style="font-size: large">
+                            {{ props.col.label }}
+                        </q-th>
+                    </template>
+                </q-table>
+
             </div>
         </template>
 
@@ -47,7 +47,7 @@ const columns = [
         name: "Course",
         align: "center",
         label: "Группа",
-        field: (row) => row.journalable.title,
+        field: (row) => row.journalable.title || (row.journalable_type == 'lesson' ? "Занятие " + date.formatDate(row.journalable.created_at, 'DD.MM') : "-"),
         sortable: true,
     },
     {
@@ -59,7 +59,15 @@ const columns = [
         format: (val) => `${val}`,
         sortable: true,
     },
-        {
+    {
+        name: "user",
+        required: true,
+        label: "Дата",
+        align: "left",
+        field: (row) => row.created_at,
+        format: (val) => `${date.formatDate(val, 'DD-MM-YYYY HH:mm:ss')}`,
+        sortable: true,
+    }, {
         name: "user",
         required: true,
         label: "Дата",
