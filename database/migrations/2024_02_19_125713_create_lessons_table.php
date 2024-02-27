@@ -17,8 +17,11 @@ return new class extends Migration
             $table->unsignedInteger('teacher_id');
             $table->string('title')->nullable();
             $table->json('json_data')->nullable();
-            $table->timestamp('started_at')->nullable();
-            $table->timestamp('finished_at')->nullable();
+            $table->timestamp('date_start')->nullable();
+            $table->dateTime('date_started_at')->nullable();
+            $table->unsignedTinyInteger('teacher_rating')->default(0);
+            $table->unsignedTinyInteger('students_rating')->default(0);
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

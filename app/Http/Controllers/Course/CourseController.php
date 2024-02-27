@@ -18,13 +18,29 @@ class CourseController extends BaseController
 
     public function show(int $courseId){
         $courseResource = new CourseResource(Course::findOrFail($courseId));
-        $lessonResource = new LessonResource(Lesson::with('course',  'teacher')->where('course_id', $courseId)->orderBy('id')->get());
 
         return $this->inertiaFromResource('Teacher/Course', $courseResource);
 
+        $lessonResource = new LessonResource(Lesson::with('course',  'teacher')->where('course_id', $courseId)->orderBy('id')->get());
         return $this->inertia('Teacher/Course', [
             'lessons' => $lessonResource->toArray(request()),
             'course' => $courseResource->toArray(request())
         ]);
+    }
+
+    public function update(Request $request, string $courseId)
+    {
+        $rules = [
+            'title' => 'string|nullable'
+        ];
+
+        $request->validate($rules);
+        $lesson = Course::find($courseId);
+        //dd($lesson);
+        $lesson->title = $request->get('title');
+        $lesson->comment = $request->get('comment');
+
+        $lesson->save();
+        return new CourseResource($lesson);
     }
 }

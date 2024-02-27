@@ -17,6 +17,7 @@ class CourseResource extends JsonResource
         $result = parent::toArray($request);
 
         $result['lessons'] = $this->lessons;
+        $result['students'] = $this->students;
 
         return $result;
     }

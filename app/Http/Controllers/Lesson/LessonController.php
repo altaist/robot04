@@ -12,6 +12,7 @@ use App\Http\Resources\Lesson\LessonResource;
 use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class LessonController extends BaseController
 {
@@ -44,14 +45,22 @@ class LessonController extends BaseController
         $rules = [
             'course_id' => 'numeric|required',
             'teacher_id' => 'numeric|required',
+            'date_start' => 'date_format:Y-m-d H:i',
             'title' => 'string|nullable'
         ];
         $validated = $request->validate($rules);
         $lesson = new Lesson();
-        $lesson ->course_id = $validated['course_id'];
-        $lesson ->teacher_id = $validated['teacher_id'];
-        $lesson ->title = data_get($validated, 'title');
+        $lesson->course_id = $validated['course_id'];
+        $lesson->teacher_id = $validated['teacher_id'];
+        $lesson->title = data_get($validated, 'title');
+        $dateStart = data_get($validated, 'date_start');
+        if($dateStart){
+            //$lesson->date_start = Carbon::createFromFormat('d-m-Y H:i', $dateStart)->format('Y-m-d H:i');
+            $lesson->date_start = $dateStart;
+        }
+        //dd($lesson);
         $lesson->save();
+        //dd($lesson);
         return new LessonResource($lesson);
     }
 
@@ -104,7 +113,10 @@ class LessonController extends BaseController
 
         $request->validate($rules);
         $lesson = Lesson::find($lessonId);
+        //dd($lesson);
         $lesson->title = $request->get('title');
+        $lesson->date_start = $request->get('date_start');
+        $lesson->comment = $request->get('comment');
         $lesson->save();
         return new LessonResource($lesson);
     }

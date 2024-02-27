@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('max_users_num')->default(0);
             $table->json('json_data')->nullable();
             $table->json('schedule');
+            $table->text('comment')->nullable();
             $table->timestamp('date_from')->nullable();
             $table->timestamp('date_to')->nullable();
             $table->timestamp('date_sign_to')->nullable();

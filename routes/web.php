@@ -27,8 +27,12 @@ Route::prefix('teacher')->group(function () {
     Route::get('journal', [JournalController::class, 'index']);
     Route::get('home', [CourseController::class, 'index'])->name('teacher.home');
     Route::get('course/{courseId}', [CourseController::class, 'show'])->name('teacher.course');
+    Route::post('course', [CourseController::class, 'store'])->name('course.store');
+    Route::post('course/{courseId}', [CourseController::class, 'update'])->name('course.update');
+
     Route::get('lesson/{lessonId}', [LessonController::class, 'show'])->name('teacher.lesson');
     Route::post('lesson', [LessonController::class, 'store'])->name('lesson.store');
+    Route::post('lesson/{lessonId}', [LessonController::class, 'update'])->name('lesson.update');
     Route::post('lesson/{lessonId}/toggle', [LessonController::class, 'toggle'])->name('lesson.students.toggle');
     Route::post('lesson/{lessonId}/students/sync', [LessonController::class, 'syncStudents'])->name('lesson.students.sync');
 });
