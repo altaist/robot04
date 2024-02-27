@@ -2,21 +2,115 @@
     <Head title="Группа" />
 
     <Layout title="Группа" @fab:click="onFabClick" :fab="true">
-
-        <template v-slot:page>
-            <div class="q-my-md">
+        <template v-slot:title>
+            <div class="q-ml-md">
                 <q-breadcrumbs>
-                    <q-breadcrumbs-el label="Учитель" :href="route('teacher.home')" />
-                    <q-breadcrumbs-el label="Группа" />
+                    <q-breadcrumbs-el label="Учитель" :href="route('teacher.home')" class="text-white" />
+                    <q-breadcrumbs-el :label="'Группа'" />
                 </q-breadcrumbs>
             </div>
-            <h4>{{ course.title }}</h4>
+        </template>
+
+        <template v-slot:page>
             <div>
+                <q-card class="my-card" flat bordered>
+                    <q-card-section>
+                        <!--div class="text-overline text-orange-9">Overline</div-->
+                        <div class="text-h5 q-mt-sm q-mb-xs" @click="dialogCourseFormEdit=true">{{ courseEditable.title }}</div>
+                        <div class="text-caption text-grey">
+                            Расписание: {{ f_schedule(courseEditable.schedule) }}
+                        </div>
+                    </q-card-section>
+
+                    <q-card-actions>
+                        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify" narrow-indicator>
+                            <q-tab name="lessons" label="Занятия" />
+                            <q-tab name="students" label="Ученики" />
+                        </q-tabs>
+                        <q-space />
+
+                        <q-btn color="grey" round flat dense :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'" @click="expanded = !expanded" />
+
+                    </q-card-actions>
+
+                    <q-slide-transition>
+                        <div v-show="expanded">
+
+                            <q-card-section class="text-subtitle2">
+                                {{ courseEditable.comment }}
+                            </q-card-section>
+                            <q-separator />
+                            <q-card-actions>
+                                <q-btn flat color="primary" label="Фото" />
+                                <q-btn flat color="secondary" label="Заметки" />
+
+                                <q-space />
+                            </q-card-actions>
+                        </div>
+                    </q-slide-transition>
+                </q-card>
+
+            </div>
+
+            <q-tab-panels v-model="tab" animated>
+                <q-tab-panel name="lessons">
+                    <div class="q-my-md">
+                        <!--div><a :href="'/teacher/course/'+lesson.course.id">{{ lesson.course.title }}</a><br/></div-->
+                        <!--div class="text-h4">Ученики</div-->
+                    </div>
+                    <div class="q-mt-md">
+                        <q-list bordered separator>
+                            <q-item v-for="item in lessons" v-ripple class="q-pa-md" :href="route('teacher.lesson', item.id)">
+                                <q-item-section>
+                                    <q-item-label>{{ getLessonTitle(item) }} </q-item-label>
+                                    <q-item-label caption>{{ item.date_start }}</q-item-label>
+                                </q-item-section>
+
+                            </q-item>
+                            <q-inner-loading :showing="showLoading">
+                                <q-spinner-gears size="50px" color="primary" />
+                            </q-inner-loading>
+                        </q-list>
+                    </div>
+                </q-tab-panel>
+
+                <q-tab-panel name="students">
+                    <div class="q-my-md">
+                        <!--div><a :href="'/teacher/course/'+lesson.course.id">{{ lesson.course.title }}</a><br/></div-->
+                        <!--div class="text-h4">Ученики</div-->
+                    </div>
+                    <div class="q-mt-md">
+                        <q-list bordered separator>
+                            <q-item v-for="item in courseStudents" v-ripple>
+                                <q-item-section>
+                                    <q-item-label>{{ item.name }}</q-item-label>
+                                    <q-item-label caption>{{ item.first_name }} {{ item.last_name }}</q-item-label>
+                                </q-item-section>
+                                <q-item-section side top v-if="iSUserEditable">
+                                    <q-toggle color="orange" v-model="attachedStudents" :val="item.id" @update:model-value="onToggle" />
+                                </q-item-section>
+                            </q-item>
+                            <q-inner-loading :showing="showLoading">
+                                <q-spinner-gears size="50px" color="primary" />
+                            </q-inner-loading>
+                        </q-list>
+                    </div>
+                </q-tab-panel>
+
+                <q-tab-panel name="skils">
+                    <div class="text-h6">Темы</div>
+                </q-tab-panel>
+
+
+            </q-tab-panels>
+
+
+            <div v-if="false">
                 <q-list bordered separator>
                     <q-item v-for="item in lessons" v-ripple class="q-pa-md" :href="route('teacher.lesson', item.id)">
                         <q-item-section>
-                            <q-item-label>{{ item.title || "Занятие " + date.formatDate(item.created_at, 'DD.MM') }} </q-item-label>
-                            <q-item-label caption>{{ item.created_at }}</q-item-label>
+                            <q-item-label>{{ getLessonTitle(item) }} </q-item-label>
+                            <q-item-label caption>{{ item.date_start }}</q-item-label>
                         </q-item-section>
 
                     </q-item>
@@ -36,7 +130,7 @@
                         <q-tr :props="props" @click="onRowClick(props.row)">
                             <q-td key="lesson" :props="props">
 
-                                <a :href="'/teacher/lesson/' + props.row.id + ''">{{ props.row.title || "Занятие " + date.formatDate(props.row.created_at, 'DD.MM') }}</a>
+                                <a :href="'/teacher/lesson/' + props.row.id + ''">{{ props.row.title || "Занятие " + date.formatDate(props.row.date_start, 'DD.MM') }}</a>
                             </q-td>
 
                         </q-tr>
@@ -44,21 +138,16 @@
                 </q-table>
             </div>
             <q-dialog v-model="dialogFormEdit">
-                <slot name="dialog_form_edit" />
-                <q-card style="width: 300px" class="q-px-sm q-pb-md">
-                    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-                        <q-card-section>
-                            <div class="text-h6">Добавить урок</div>
-                        </q-card-section>
-                        <q-input filled v-model="newLesson.title" label="Название урока *" hint="Название" lazy-rules
-                            :rules="[val => val && val.length > 0 || 'Пожалуйста, введите название']" />
+                <q-card style="width: 100%" class=" q-pb-md">
+                    <LessonEditForm :formData="newLesson" @form:saved="onLessonSaved" @form:canceled="onLessonCanceled"></LessonEditForm>
 
+                </q-card>
+            </q-dialog>
 
-                        <div>
-                            <q-btn label="ОК" type="submit" color="primary" />
-                            <q-btn label="Отмена" type="reset" color="primary" flat class="q-ml-sm" />
-                        </div>
-                    </q-form>
+            <q-dialog v-model="dialogCourseFormEdit">
+                <q-card style="width: 100%" class=" q-pb-md">
+                    <CourseEditForm :formData="courseEditable" @form:saved="onCourseSaved" @form:canceled="onCourseCanceled"></CourseEditForm>
+
                 </q-card>
             </q-dialog>
         </template>
@@ -71,50 +160,49 @@
 import { ref, computed, reactive } from 'vue'
 import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
-import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 import { date } from 'quasar'
+import { getLessonTitle, f_date, f_schedule } from '@/features/common.js'
+
+import Layout from "@/Layouts/QuasarLayoutDefault.vue";
+import LessonEditForm from "@/Components/Edu/Lesson/LessonEditForm.vue";
+import CourseEditForm from "@/Components/Edu/Course/CourseEditForm.vue";
 
 const page = usePage();
 console.log(page.props.data);
 const course = ref(page.props.data);
 const lessons = ref(course.value.lessons);
+const courseStudents = ref(course.value.students);
 
 const loading = ref(false);
 const showLoading = ref(false);
 const dialogFormEdit = ref(false);
+const dialogCourseFormEdit = ref(false);
+
+const tab = ref('lessons');
+const expanded = ref(false);
+
+const iSUserEditable = ref(false);
 
 const onFabClick = (arg) => {
     dialogFormEdit.value = true;
     console.log('click');
 }
 
+const courseEditable = ref({
+    id: course.value.id,
+    title: course.value.title,
+    schedule: course.value.schedule,
+    comment: course.value.comment
+});
+
 const newLesson = ref({
     course_id: course.value.id,
     teacher_id: course.value.teacher_id,
-    title: ""
+    title: "",
+    date_start: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm')
 })
 
-const onSubmit = () => {
-    console.log(newLesson.value);
-    axios.post(
-        route(
-            'lesson.store',
-        ),
-        newLesson.value
-    ).then((response) => {
-        newLesson.value = response.data.data;
-        lessons.value.push(newLesson.value);
-    }).finally(() => {
-        dialogFormEdit.value = false;
-        loading.value = false;
-        showLoading.value = false;
-    });
-}
-
-const onReset = () => dialogFormEdit.value = false
-
 const columns = [
-
     {
         name: "lesson",
         align: "center",
@@ -122,6 +210,18 @@ const columns = [
         field: (row) => row.title || "Занятие " + date.formatDate(row.created_at, 'DD.MM'),
         sortable: true,
     }
-
 ];
+
+const onLessonSaved = (formData) => {
+    dialogFormEdit.value = false;
+    lessons.value.push(formData);
+}
+
+const onLessonCanceled = () => dialogFormEdit.value = false;
+
+const onCourseSaved = (formData) => {
+    dialogCourseFormEdit.value = false;
+}
+
+const onCourseCanceled = () => dialogCourseFormEdit.value = false;
 </script>

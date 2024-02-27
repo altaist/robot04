@@ -3,14 +3,15 @@
 
         <q-header reveal elevated class="bg-primary text-white">
             <q-toolbar>
-                <!--q-btn dense flat round icon="keyboard_arrow_left" @click="toggleLeftDrawer" /-->
-
-                <q-toolbar-title>
-                    <!--q-avatar>
+                <q-btn dense flat round icon="arrow_back" @click="back" />
+                <slot name="title">
+                    <q-toolbar-title>
+                        <!--q-avatar>
                         <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
                     </q-avatar-->
-                    {{ title }}
-                </q-toolbar-title>
+                        {{ title }}
+                    </q-toolbar-title>
+                </slot>
             </q-toolbar>
         </q-header>
 
@@ -38,7 +39,7 @@
                 <slot name="page"></slot>
 
                 <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="fab">
-                    <q-fab icon="add" color="primary" @click="onFabClick"/>
+                    <q-fab icon="add" color="primary" @click="onFabClick" />
 
                 </q-page-sticky>
                 <q-page-scroller position="bottom-left" :scroll-offset="150" :offset="[18, 18]">
@@ -62,7 +63,6 @@
             </q-toolbar>
         </q-footer>
     </q-layout>
-
 </template>
 
 <script setup>
@@ -93,6 +93,8 @@ const toggleLeftDrawer = () => {
 const onFabClick = (arg) => {
     emit('fab:click', arg);
 }
+
+const back = () => window.history.back();
 
 const defaultMenuList = [
     {

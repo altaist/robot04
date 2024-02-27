@@ -1,7 +1,7 @@
 <template>
     <Head title="Группы" />
 
-    <Layout title="Учитель" @fab:click="onFabClick">
+    <Layout title="Личный кабинет учителя" @fab:click="onFabClick">
 
         <template v-slot:page>
 
@@ -11,8 +11,8 @@
                         <q-item v-for="item in courses" v-ripple class="q-pa-md" :href="route('teacher.course', item.id)">
                             <q-item-section>
                                 <q-item-label>{{ item.title || "Группа " }} </q-item-label>
-                                <q-item-label caption>{{ item.created_at }}</q-item-label>
-                                <q-item-label caption>{{ showSchedule(item.schedule) }}</q-item-label>
+                                <q-item-label caption>Учеников: {{ item.students.length }}</q-item-label>
+                                <q-item-label caption>{{ f_schedule(item.schedule) }}</q-item-label>
                             </q-item-section>
 
                         </q-item>
@@ -37,10 +37,10 @@
                                     <a :href="'/teacher/course/' + props.row.id + ''">{{ props.row.title }}</a>
                                 </q-td>
                                 <q-td key="teacher" :props="props">
-                                    {{ props.row.teacher.name }}
+                                   2232323 {{ props.row.teacher.name }}
                                 </q-td>
                                 <q-td key="schedule" :props="props">
-                                    {{ props.row.schedule }}
+                                    {{ f_schedule(props.row.schedule) }}
                                 </q-td>
                             </q-tr>
                         </template>
@@ -58,6 +58,7 @@ import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 import { date } from 'quasar'
+import { f_date, f_schedule } from '@/features/common.js'
 
 const page = usePage();
 console.log(page.props.data);
@@ -106,7 +107,6 @@ const columns = [
         label: "Расписание",
         align: "left",
         field: (row) => row.schedule,
-        format: (val) => `${JSON.stringify(val)}`,
         sortable: true,
     }
 ];
