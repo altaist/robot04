@@ -1,8 +1,14 @@
 <template>
     <Head title="Группы" />
 
-    <Layout title="Личный кабинет учителя" @fab:click="onFabClick">
-
+    <Layout title="Личный кабинет учителя" top-menu-icon="menu" top-menu-action="home" @fab:click="onFabClick">
+        <template v-slot:title>
+            <div class="q-ml-md">
+                <q-breadcrumbs>
+                    <q-breadcrumbs-el :label="'Личный кабинет учителя'" />
+                </q-breadcrumbs>
+            </div>
+        </template>
         <template v-slot:page>
 
             <div>
@@ -37,7 +43,7 @@
                                     <a :href="'/teacher/course/' + props.row.id + ''">{{ props.row.title }}</a>
                                 </q-td>
                                 <q-td key="teacher" :props="props">
-                                   2232323 {{ props.row.teacher.name }}
+                                    2232323 {{ props.row.teacher.name }}
                                 </q-td>
                                 <q-td key="schedule" :props="props">
                                     {{ f_schedule(props.row.schedule) }}
@@ -58,7 +64,7 @@ import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 import { date } from 'quasar'
-import { f_date, f_schedule } from '@/features/common.js'
+import { f_date, f_schedule } from '@/libs/utils.js'
 
 const page = usePage();
 console.log(page.props.data);

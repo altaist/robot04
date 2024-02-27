@@ -1,8 +1,6 @@
 
 import { date } from 'quasar'
 
-export const getLessonTitle = item => item.title || "Занятие " + (item.date_start ? date.formatDate(item.date_start, 'DD.MM') : '');
-
 export const f_date = (datetime) => {
     return date.formatDate(datetime, 'DD.MM.YYYY HH:mm')
 }

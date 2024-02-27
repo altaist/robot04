@@ -27,13 +27,13 @@
                     <q-card-section>
                         <!--div class="text-overline text-orange-9">Overline</div-->
                         <div class="text-h5 q-mt-sm q-mb-xs" @click="openEditForm">{{ getLessonTitle(lessonEditable) }}</div>
-                        <div class="text-caption text-grey">
+                        <div class="text-caption">
                             Дата: {{ f_date(lessonEditable.date_start) }}
                         </div>
                     </q-card-section>
 
                     <q-card-actions>
-                        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify" narrow-indicator>
+                        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" narrow-indicator>
                             <q-tab name="students" label="Ученики" />
                             <q-tab name="skils" label="Темы" />
                             <q-tab name="tasks" label="Задания" />
@@ -67,7 +67,7 @@
             <q-separator />
 
             <q-tab-panels v-model="tab" animated>
-                <q-tab-panel name="students">
+                <q-tab-panel name="students" class="q-pa-none">
                     <div class="q-my-md">
                         <!--div><a :href="'/teacher/course/'+lesson.course.id">{{ lesson.course.title }}</a><br/></div-->
                         <!--div class="text-h4">Ученики</div-->
@@ -75,6 +75,23 @@
                     <div class="q-mt-md">
                         <q-list bordered separator>
                             <q-item v-for="item in courseStudents" v-ripple>
+                                <q-item-section>
+                                    <q-item-label>{{ item.name }}</q-item-label>
+                                    <q-item-label caption>{{ item.first_name }} {{ item.last_name }}</q-item-label>
+                                </q-item-section>
+                                <q-item-section side top>
+                                    <q-toggle color="orange" v-model="attachedStudents" :val="item.id" @update:model-value="onToggle" />
+                                </q-item-section>
+                            </q-item>
+                            <q-inner-loading :showing="showLoading">
+                                <q-spinner-gears size="50px" color="primary" />
+                            </q-inner-loading>
+                        </q-list>
+                    </div>
+                    <div class="q-my-md" v-if="nonCourseStudents.length">
+                        <div class="q-pa-md">Не записанные:</div>
+                        <q-list bordered separator>
+                            <q-item v-for="item in nonCourseStudents" v-ripple>
                                 <q-item-section>
                                     <q-item-label>{{ item.name }}</q-item-label>
                                     <q-item-label caption>{{ item.first_name }} {{ item.last_name }}</q-item-label>
@@ -100,30 +117,10 @@
             </q-tab-panels>
 
 
-            <div class="q-my-md" v-if="nonCourseStudents.length">
-                <div class="q-pa-md">Не записанные:</div>
-                <q-list bordered separator>
-                    <q-item v-for="item in nonCourseStudents" v-ripple>
-                        <q-item-section>
-                            <q-item-label>{{ item.name }}</q-item-label>
-                            <q-item-label caption>{{ item.first_name }} {{ item.last_name }}</q-item-label>
-                        </q-item-section>
-                        <q-item-section side top>
-                            <q-toggle color="orange" v-model="attachedStudents" :val="item.id" @update:model-value="onToggle" />
-                        </q-item-section>
-                    </q-item>
-                    <q-inner-loading :showing="showLoading">
-                        <q-spinner-gears size="50px" color="primary" />
-                    </q-inner-loading>
-                </q-list>
-            </div>
+
             <q-dialog v-model="showEditForm">
                 <q-card style="width: 100%" class=" q-pb-md">
-                    <LessonEditForm
-                        :formData="lessonEditable"
-                        @form:saved="onLessonCanceled"
-                        @form:canceled="onLessonCanceled"
-                    ></LessonEditForm>
+                    <LessonEditForm :formData="lessonEditable" @form:saved="onLessonCanceled" @form:canceled="onLessonCanceled"></LessonEditForm>
 
                 </q-card>
             </q-dialog>
@@ -136,10 +133,15 @@
 import { ref, computed } from 'vue'
 import { date } from 'quasar'
 import { usePage, Head } from "@inertiajs/vue3";
-import { getLessonTitle, f_date } from '@/features/common.js'
+import { f_date } from '@/libs/utils.js'
+import { useLesson } from './lesson.js'
 
 import LessonEditForm from "@/Components/Edu/Lesson/LessonEditForm.vue";
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
+
+const {
+    getLessonTitle
+} = useLesson();
 
 const page = usePage();
 

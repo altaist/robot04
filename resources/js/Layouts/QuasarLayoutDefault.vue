@@ -3,7 +3,7 @@
 
         <q-header reveal elevated class="bg-primary text-white">
             <q-toolbar>
-                <q-btn dense flat round icon="arrow_back" @click="back" />
+                <q-btn dense flat round :icon="topMenuIcon" @click="back" />
                 <slot name="title">
                     <q-toolbar-title>
                         <!--q-avatar>
@@ -69,7 +69,7 @@
 import { ref } from 'vue'
 
 
-defineProps({
+const props = defineProps({
     fab: {
         type: Boolean,
         default: false
@@ -77,9 +77,20 @@ defineProps({
     title: {
         type: String,
     },
+
+    topMenuIcon: {
+        type: String,
+        default: "arrow_back"
+    },
+
+    topMenuAction: {
+        type: String,
+        default: "back"
+    },
 });
 
 const emit = defineEmits(['fab:click', 'submit'])
+
 
 const dialogFormEdit = ref(false);
 const dialogFormView = ref(false);
@@ -94,7 +105,7 @@ const onFabClick = (arg) => {
     emit('fab:click', arg);
 }
 
-const back = () => window.history.back();
+const back = () => props.topMenuAction == 'home' ? toggleLeftDrawer() : window.history.back();
 
 const defaultMenuList = [
     {

@@ -17,7 +17,7 @@
                     <q-card-section>
                         <!--div class="text-overline text-orange-9">Overline</div-->
                         <div class="text-h5 q-mt-sm q-mb-xs" @click="dialogCourseFormEdit=true">{{ courseEditable.title }}</div>
-                        <div class="text-caption text-grey">
+                        <div class="text-caption">
                             Расписание: {{ f_schedule(courseEditable.schedule) }}
                         </div>
                     </q-card-section>
@@ -53,7 +53,7 @@
             </div>
 
             <q-tab-panels v-model="tab" animated>
-                <q-tab-panel name="lessons">
+                <q-tab-panel name="lessons" class="q-pa-none">
                     <div class="q-my-md">
                         <!--div><a :href="'/teacher/course/'+lesson.course.id">{{ lesson.course.title }}</a><br/></div-->
                         <!--div class="text-h4">Ученики</div-->
@@ -74,7 +74,7 @@
                     </div>
                 </q-tab-panel>
 
-                <q-tab-panel name="students">
+                <q-tab-panel name="students" class="q-pa-none">
                     <div class="q-my-md">
                         <!--div><a :href="'/teacher/course/'+lesson.course.id">{{ lesson.course.title }}</a><br/></div-->
                         <!--div class="text-h4">Ученики</div-->
@@ -161,7 +161,8 @@ import { ref, computed, reactive } from 'vue'
 import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 import { date } from 'quasar'
-import { getLessonTitle, f_date, f_schedule } from '@/features/common.js'
+import { useLesson } from './lesson.js'
+import { f_date, f_schedule } from '@/libs/utils.js'
 
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 import LessonEditForm from "@/Components/Edu/Lesson/LessonEditForm.vue";
@@ -172,6 +173,10 @@ console.log(page.props.data);
 const course = ref(page.props.data);
 const lessons = ref(course.value.lessons);
 const courseStudents = ref(course.value.students);
+
+const {
+    getLessonTitle
+ } = useLesson();
 
 const loading = ref(false);
 const showLoading = ref(false);

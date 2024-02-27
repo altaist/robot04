@@ -1,10 +1,10 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
+import Checkbox from '@/Components/AuthBreeze/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/AuthBreeze/InputError.vue';
+import InputLabel from '@/Components/AuthBreeze/InputLabel.vue';
+import PrimaryButton from '@/Components/AuthBreeze/PrimaryButton.vue';
+import TextInput from '@/Components/AuthBreeze/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps({
