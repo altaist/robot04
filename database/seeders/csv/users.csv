@@ -1,4 +1,4 @@
-name;first_name;last_name;phone;skud_key;json_data
+name;first_name;last_name;phone;skud_key;extra
 Егор;Егор;Щигорев;79236650984;2218233164;{"parents_fio":"Анастасия", "parents_phone":"79236650984"}
 Назар;Назар;Солохов;79969626208;132034164;{"parents_fio":"Елена", "parents_phone":"79969626208"}
 Андрей;Андрей;Иваницкий;79039924697;1731323164;{"parents_fio":"Юлия", "parents_phone":"79039924697"}

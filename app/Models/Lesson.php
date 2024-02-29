@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 class Lesson extends Model
 {
     protected $casts = [
-        'json_data' => 'object',
+        'extra' => 'object',
         'date_start' => 'datetime:Y-m-d H:i',
         'date_started_at' => 'datetime:Y-m-d H:i'
     ];

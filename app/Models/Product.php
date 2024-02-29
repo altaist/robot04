@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     protected $casts = [
-        'json_data' => 'object'
+        'extra' => 'object'
     ];
 
     public function author(): BelongsTo

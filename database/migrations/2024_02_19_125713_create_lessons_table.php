@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('course_id');
             $table->unsignedInteger('teacher_id');
             $table->string('title')->nullable();
-            $table->json('json_data')->nullable();
+            $table->json('extra')->nullable();
             $table->timestamp('date_start')->nullable();
             $table->dateTime('date_started_at')->nullable();
             $table->unsignedTinyInteger('teacher_rating')->default(0);

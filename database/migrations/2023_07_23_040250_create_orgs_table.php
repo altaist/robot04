@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('summary', 256)->comment('Company summary');
             $table->string('description', 1024)->nullable()->comment('Company description');
             $table->string('img')->nullable()->comment('Company default img');
-            $table->json('json_data')->nullable()->comment('Company content');
+            $table->json('extra')->nullable()->comment('Company content');
             $table->string('url');
             $table->string('email');
             $table->string('phone');

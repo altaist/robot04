@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('lesson_id')->index();
             $table->unsignedInteger('user_id')->index();
             $table->unsignedTinyInteger('result_rating')->default(0);
-            $table->json('json_data')->nullable();
+            $table->json('extra')->nullable();
             $table->string('comments')->nullable();
             $table->timestamps();
         });

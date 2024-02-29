@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('state')->default(0);
             $table->tinyInteger('pos')->default(0);
             $table->unsignedSmallInteger('max_users_num')->default(0);
-            $table->json('json_data')->nullable();
+            $table->json('extra')->nullable();
             $table->json('schedule');
             $table->text('comment')->nullable();
             $table->timestamp('date_from')->nullable();
