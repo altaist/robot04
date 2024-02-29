@@ -63,8 +63,7 @@ import { ref, computed, reactive } from 'vue'
 import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
-import { date } from 'quasar'
-import { f_date, f_schedule } from '@/libs/utils.js'
+import { f_date, f_schedule } from '@shared/utils.js'
 
 const page = usePage();
 console.log(page.props.data);
@@ -117,3 +116,4 @@ const columns = [
     }
 ];
 </script>
+@/shared/utils.js

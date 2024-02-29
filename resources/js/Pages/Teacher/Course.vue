@@ -16,9 +16,12 @@
                 <q-card class="my-card" flat bordered>
                     <q-card-section>
                         <!--div class="text-overline text-orange-9">Overline</div-->
-                        <div class="text-h5 q-mt-sm q-mb-xs" @click="dialogCourseFormEdit=true">{{ courseEditable.title }}</div>
+                        <div class="text-h5 q-mt-sm q-mb-xs" @click="dialogCourseFormEdit = true">
+                            {{ courseEditable.title }}
+                        </div>
                         <div class="text-caption">
-                            Расписание: {{ f_schedule(courseEditable.schedule) }}
+                            Расписание:
+                            {{ f_schedule(courseEditable.schedule) }}
                         </div>
                     </q-card-section>
 
@@ -29,13 +32,14 @@
                         </q-tabs>
                         <q-space />
 
-                        <q-btn color="grey" round flat dense :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'" @click="expanded = !expanded" />
-
+                        <q-btn color="grey" round flat dense :icon="expanded
+                                ? 'keyboard_arrow_up'
+                                : 'keyboard_arrow_down'
+                            " @click="expanded = !expanded" />
                     </q-card-actions>
 
                     <q-slide-transition>
                         <div v-show="expanded">
-
                             <q-card-section class="text-subtitle2">
                                 {{ courseEditable.comment }}
                             </q-card-section>
@@ -49,7 +53,6 @@
                         </div>
                     </q-slide-transition>
                 </q-card>
-
             </div>
 
             <q-tab-panels v-model="tab" animated>
@@ -58,14 +61,26 @@
                         <!--div><a :href="'/teacher/course/'+lesson.course.id">{{ lesson.course.title }}</a><br/></div-->
                         <!--div class="text-h4">Ученики</div-->
                     </div>
+                    <!--div class="q-mt-md">
+                        <ListDefault
+                            title="test"
+                            :items="lessons"
+                            item-title-field="title"
+                            item-sub-title-field="date_start"
+                            @item:click="onLessonItemClick"/>
+                    </div-->
+
+
                     <div class="q-mt-md">
                         <q-list bordered separator>
                             <q-item v-for="item in lessons" v-ripple class="q-pa-md" :href="route('teacher.lesson', item.id)">
                                 <q-item-section>
-                                    <q-item-label>{{ getLessonTitle(item) }} </q-item-label>
-                                    <q-item-label caption>{{ item.date_start }}</q-item-label>
+                                    <q-item-label>{{ getLessonTitle(item) }}
+                                    </q-item-label>
+                                    <q-item-label caption>{{
+                                        item.date_start
+                                    }}</q-item-label>
                                 </q-item-section>
-
                             </q-item>
                             <q-inner-loading :showing="showLoading">
                                 <q-spinner-gears size="50px" color="primary" />
@@ -84,7 +99,8 @@
                             <q-item v-for="item in courseStudents" v-ripple>
                                 <q-item-section>
                                     <q-item-label>{{ item.name }}</q-item-label>
-                                    <q-item-label caption>{{ item.first_name }} {{ item.last_name }}</q-item-label>
+                                    <q-item-label caption>{{ item.first_name }}
+                                        {{ item.last_name }}</q-item-label>
                                 </q-item-section>
                                 <q-item-section side top v-if="iSUserEditable">
                                     <q-toggle color="orange" v-model="attachedStudents" :val="item.id" @update:model-value="onToggle" />
@@ -95,24 +111,27 @@
                             </q-inner-loading>
                         </q-list>
                     </div>
+
+                    <div class="q-mt-md">
+                        <ListDefault title="Тест" :items="courseStudents" item-title-field="name" item-sub-title-field="last_name"></ListDefault>
+                    </div>
                 </q-tab-panel>
 
                 <q-tab-panel name="skils">
                     <div class="text-h6">Темы</div>
                 </q-tab-panel>
-
-
             </q-tab-panels>
-
 
             <div v-if="false">
                 <q-list bordered separator>
                     <q-item v-for="item in lessons" v-ripple class="q-pa-md" :href="route('teacher.lesson', item.id)">
                         <q-item-section>
-                            <q-item-label>{{ getLessonTitle(item) }} </q-item-label>
-                            <q-item-label caption>{{ item.date_start }}</q-item-label>
+                            <q-item-label>{{ getLessonTitle(item) }}
+                            </q-item-label>
+                            <q-item-label caption>{{
+                                item.date_start
+                            }}</q-item-label>
                         </q-item-section>
-
                     </q-item>
                     <q-inner-loading :showing="showLoading">
                         <q-spinner-gears size="50px" color="primary" />
@@ -129,30 +148,32 @@
                     <template v-slot:body="props">
                         <q-tr :props="props" @click="onRowClick(props.row)">
                             <q-td key="lesson" :props="props">
-
-                                <a :href="'/teacher/lesson/' + props.row.id + ''">{{ props.row.title || "Занятие " + date.formatDate(props.row.date_start, 'DD.MM') }}</a>
+                                <a :href="'/teacher/lesson/' + props.row.id + ''
+                                    ">{{
+        props.row.title ||
+        "Занятие " +
+        date.formatDate(
+            props.row.date_start,
+            "DD.MM"
+        )
+    }}</a>
                             </q-td>
-
                         </q-tr>
                     </template>
                 </q-table>
             </div>
             <q-dialog v-model="dialogFormEdit">
-                <q-card style="width: 100%" class=" q-pb-md">
+                <q-card style="width: 100%" class="q-pb-md">
                     <LessonEditForm :formData="newLesson" @form:saved="onLessonSaved" @form:canceled="onLessonCanceled"></LessonEditForm>
-
                 </q-card>
             </q-dialog>
 
             <q-dialog v-model="dialogCourseFormEdit">
-                <q-card style="width: 100%" class=" q-pb-md">
+                <q-card style="width: 100%" class="q-pb-md">
                     <CourseEditForm :formData="courseEditable" @form:saved="onCourseSaved" @form:canceled="onCourseCanceled"></CourseEditForm>
-
                 </q-card>
             </q-dialog>
         </template>
-
-
     </Layout>
 </template>
 
@@ -161,12 +182,13 @@ import { ref, computed, reactive } from 'vue'
 import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 import { date } from 'quasar'
-import { useLesson } from './lesson.js'
-import { f_date, f_schedule } from '@/libs/utils.js'
+import { useLesson } from '@composables/lesson.js'
+import { f_date, f_schedule } from '@shared/utils.js'
 
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
-import LessonEditForm from "@/Components/Edu/Lesson/LessonEditForm.vue";
-import CourseEditForm from "@/Components/Edu/Course/CourseEditForm.vue";
+import LessonEditForm from "@/Components/Edu/LessonEditForm.vue";
+import CourseEditForm from "@/Components/Edu/CourseEditForm.vue";
+import ListDefault from "@/Components/Edu/ListDefault.vue"
 
 const page = usePage();
 console.log(page.props.data);
@@ -176,7 +198,7 @@ const courseStudents = ref(course.value.students);
 
 const {
     getLessonTitle
- } = useLesson();
+} = useLesson();
 
 const loading = ref(false);
 const showLoading = ref(false);
@@ -189,8 +211,8 @@ const expanded = ref(false);
 const iSUserEditable = ref(false);
 
 const onFabClick = (arg) => {
+    if(tab.value=='students') return;
     dialogFormEdit.value = true;
-    console.log('click');
 }
 
 const courseEditable = ref({
@@ -217,11 +239,14 @@ const columns = [
     }
 ];
 
+const onLessonItemClick = (item) => {
+    window.location = route('teacher.lesson', item.id);
+}
+
 const onLessonSaved = (formData) => {
     dialogFormEdit.value = false;
     lessons.value.push(formData);
 }
-
 const onLessonCanceled = () => dialogFormEdit.value = false;
 
 const onCourseSaved = (formData) => {
@@ -230,3 +255,7 @@ const onCourseSaved = (formData) => {
 
 const onCourseCanceled = () => dialogCourseFormEdit.value = false;
 </script>
+./Composables/lesson.js
+@/shared/utils.js
+../../Composables/lesson.js
+resources/shared/utils.js

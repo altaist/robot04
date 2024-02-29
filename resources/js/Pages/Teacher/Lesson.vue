@@ -14,14 +14,6 @@
 
 
         <template v-slot:page>
-            <!--div class="q-my-md">
-                <q-breadcrumbs>
-                    <q-breadcrumbs-el label="Учитель" :href="route('teacher.home')" />
-                    <q-breadcrumbs-el :label="'Группа ' + lesson.course.title" :href="route('teacher.course', lesson.course.id)" />
-                    <q-breadcrumbs-el :label="getLessonTitle(lesson)" />
-                </q-breadcrumbs>
-            </div-->
-
             <div>
                 <q-card class="my-card" flat bordered>
                     <q-card-section>
@@ -40,12 +32,12 @@
                         </q-tabs>
                         <q-space />
 
-                        <q-btn color="grey" round flat dense :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'" @click="expanded = !expanded" />
+                        <q-btn color="grey" round flat dense :icon="headerExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'" @click="headerExpanded = !headerExpanded" />
 
                     </q-card-actions>
 
                     <q-slide-transition>
-                        <div v-show="expanded">
+                        <div v-show="headerExpanded">
 
                             <q-card-section class="text-subtitle2">
                                 {{ lessonEditable.comment }}
@@ -133,10 +125,11 @@
 import { ref, computed } from 'vue'
 import { date } from 'quasar'
 import { usePage, Head } from "@inertiajs/vue3";
-import { f_date } from '@/libs/utils.js'
-import { useLesson } from './lesson.js'
+import { f_date } from '@shared/utils.js'
+import { useLesson } from '@composables/lesson.js'
+import { useUi } from '@composables/ui.js'
 
-import LessonEditForm from "@/Components/Edu/Lesson/LessonEditForm.vue";
+import LessonEditForm from "@components/Edu/LessonEditForm.vue";
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 
 const {
@@ -161,8 +154,14 @@ console.log(page.props.data);
 const studentIdsComputed = computed(() => lessonStudents.value.map((item) => item.id));
 const courseStudentIdsComputed = computed(() => courseStudents.value.map((item) => item.id));
 
-const tab = ref('students');
-const expanded = ref(false);
+const {
+    tab,
+    headerExpanded,
+    showEditForm,
+    loading,
+    showLoading
+} = useUi();
+tab.value = "students";
 
 const isStudentAttached = (id) => {
     return studentIdsComputed.value.includes(id);
@@ -175,10 +174,6 @@ const isItemInCourse = (id) => {
 const nonCourseStudents = computed(() => lessonStudents.value.filter(item => !isItemInCourse(item.id)))
 
 const attachedStudents = ref(studentIdsComputed.value);
-
-const loading = ref(false);
-const showLoading = ref(false);
-const showEditForm = ref(false);
 
 const openEditForm = () => showEditForm.value = true;
 const onLessonCanceled = () => showEditForm.value = false;
@@ -237,3 +232,5 @@ const columns = [
     }
 ];
 </script>
+./Composables/lesson.js
+../../Composables/lesson.js../../Composables/ui.js

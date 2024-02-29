@@ -39,27 +39,27 @@
                 <slot name="page"></slot>
 
                 <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if="fab">
-                    <q-fab icon="add" color="primary" @click="onFabClick" />
+                    <q-btn fab icon="add" color="primary" @click="onFabClick" />
 
                 </q-page-sticky>
                 <q-page-scroller position="bottom-left" :scroll-offset="150" :offset="[18, 18]">
-                    <q-btn fab icon="keyboard_arrow_up" color="accent" />
+                    <q-btn fab icon="keyboard_arrow_up" color="secondary" />
                 </q-page-scroller>
             </q-page>
 
         </q-page-container>
 
-        <q-footer reveal elevated class="bg-grey-8 text-white">
+        <q-footer reveal bordered class="bg-white text-orange" >
             <q-toolbar>
                 <q-toolbar-title>
-                    <q-avatar>
+                    <q-avatar color="orange">
                         <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
                     </q-avatar>
 
 
 
                 </q-toolbar-title>
-                <span class="text-h6">robot04.ru</span>
+                <q-btn flat href="/" target="top">robot04.ru</q-btn>
             </q-toolbar>
         </q-footer>
     </q-layout>
