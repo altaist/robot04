@@ -49,7 +49,7 @@
 
         </q-page-container>
 
-        <q-footer reveal bordered class="bg-white text-orange" >
+        <!--q-footer reveal bordered class="bg-white text-orange" >
             <q-toolbar>
                 <q-toolbar-title>
                     <q-avatar color="orange">
@@ -61,7 +61,7 @@
                 </q-toolbar-title>
                 <q-btn flat href="/" target="top">robot04.ru</q-btn>
             </q-toolbar>
-        </q-footer>
+        </q-footer-->
     </q-layout>
 </template>
 
