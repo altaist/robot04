@@ -75,7 +75,7 @@
                                     <q-toggle color="orange" v-model="attachedStudents" :val="item.id" @update:model-value="onToggle" />
                                 </q-item-section>
                             </q-item>
-                            <q-inner-loading :showing="showLoading">
+                            <q-inner-loading :showing=loading>
                                 <q-spinner-gears size="50px" color="primary" />
                             </q-inner-loading>
                         </q-list>
@@ -92,7 +92,7 @@
                                     <q-toggle color="orange" v-model="attachedStudents" :val="item.id" @update:model-value="onToggle" />
                                 </q-item-section>
                             </q-item>
-                            <q-inner-loading :showing="showLoading">
+                            <q-inner-loading :showing=loading>
                                 <q-spinner-gears size="50px" color="primary" />
                             </q-inner-loading>
                         </q-list>
@@ -129,8 +129,8 @@ import { f_date } from '@shared/utils.js'
 import { useLesson } from '@composables/lesson.js'
 import { useUi } from '@composables/ui.js'
 
-import LessonEditForm from "@components/Edu/LessonEditForm.vue";
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
+import LessonEditForm from "@components/Edu/Lesson/LessonEditForm.vue";
 
 const {
     getLessonTitle
@@ -189,7 +189,7 @@ const onFabClick = (arg) => {
 const onToggle = (val) => {
     console.log(val);
     loading.value = true;
-    setTimeout(() => { showLoading.value = loading.value }, 100);
+
 
     axios.post(
         route(
@@ -204,12 +204,10 @@ const onToggle = (val) => {
     ).then((response) => {
         console.log(response);
         attachedStudents.value = response.data;
-        showLoading.value = false;
         loading.value = false;
         console.log('Changed', attachedStudents.value);
     }).catch(() => {
         loading.value = false;
-        showLoading.value = false;
     });
 }
 

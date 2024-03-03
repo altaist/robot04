@@ -96,7 +96,7 @@
                     </div>
                     <div class="q-mt-md">
                         <q-list bordered separator>
-                            <q-item v-for="item in courseStudents" v-ripple>
+                            <q-item v-for="item in courseStudents" v-ripple class="q-pa-md" :href="route('teacher.student', item.id)">
                                 <q-item-section>
                                     <q-item-label>{{ item.name }}</q-item-label>
                                     <q-item-label caption>{{ item.first_name }}
@@ -179,15 +179,15 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue'
+import { date } from 'quasar'
 import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
-import { date } from 'quasar'
 import { useLesson } from '@composables/lesson.js'
 import { f_date, f_schedule } from '@shared/utils.js'
 
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
-import LessonEditForm from "@/Components/Edu/LessonEditForm.vue";
-import CourseEditForm from "@/Components/Edu/CourseEditForm.vue";
+import LessonEditForm from "@/Components/Edu/Lesson/LessonEditForm.vue";
+import CourseEditForm from "@/Components/Edu/Course/CourseEditForm.vue";
 import ListDefault from "@/Components/Edu/ListDefault.vue"
 
 const page = usePage();

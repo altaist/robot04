@@ -1,6 +1,6 @@
 <template>
-    <div class="text-h5 text-bold q-my-md q-ml-md" v-if="title">{{ title }}</div>
-    <q-list bordered separator >
+    <div class="text-h6 text-bold q-my-md q-ml-md" v-if="title">{{ title }}</div>
+    <q-list bordered separator v-if="items.length" >
         <q-item v-for="item in items" v-ripple clickable @click="onClick(item)">
             <slot name="title_section">
                 <q-item-section>

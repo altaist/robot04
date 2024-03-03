@@ -62,8 +62,8 @@
 import { ref, computed, reactive } from 'vue'
 import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
-import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 import { f_date, f_schedule } from '@shared/utils.js'
+import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 
 const page = usePage();
 console.log(page.props.data);
