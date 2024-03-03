@@ -37,7 +37,7 @@ class Lesson extends Model
 
     public function journalRecords(): MorphMany
     {
-        return $this->morphMany(Journal::class, 'journalable')->withTimestamps();
+        return $this->morphMany(Journal::class, 'journalable');
     }
 
 }

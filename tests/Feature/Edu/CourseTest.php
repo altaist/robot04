@@ -3,6 +3,8 @@
 namespace Tests\Feature\Edu;
 
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\User;
 use Tests\Feature\BaseTestCase;
 
 class CourseTest extends BaseTestCase
@@ -21,6 +23,44 @@ class CourseTest extends BaseTestCase
 
         $this->assertCount(2, $course->journalRecords);
     }
+
+    public function test_lesson_relations(): void
+    {
+        $lesson = Lesson::find(1);
+        $this->assertNotNull($lesson);
+
+        $this->assertEquals($lesson->course->id, 1);
+        $this->assertEquals($lesson->teacher->id, 19);
+
+        $lessonStudents = $lesson->students;
+        $this->assertCount(3, $lessonStudents);
+
+        $this->assertCount(7, $lesson->course->students);
+
+        $this->assertCount(3, $lesson->journalRecords);
+
+    }
+
+    public function test_student_relations(): void
+    {
+        $user = User::find(11);
+        $this->assertNotNull($user);
+        $lessons = $user->lessons;
+        $this->assertCount(3, $lessons);
+
+        $user = User::find(20);
+        $this->assertNotNull($user);
+        $courses = $user->courses;
+        $this->assertCount(2, $courses);
+
+
+
+
+
+
+    }
+
+
 
 /*
     public function test_course_schedule(): void

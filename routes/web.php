@@ -4,6 +4,7 @@ use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\Lesson\LessonController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\StudentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,10 @@ Route::prefix('teacher')->group(function () {
     Route::post('lesson/{lessonId}', [LessonController::class, 'update'])->name('lesson.update');
     Route::post('lesson/{lessonId}/toggle', [LessonController::class, 'toggle'])->name('lesson.students.toggle');
     Route::post('lesson/{lessonId}/students/sync', [LessonController::class, 'syncStudents'])->name('lesson.students.sync');
+
+    Route::get('student/{user}', [StudentController::class, 'show'])->name('teacher.student');
+    Route::post('student', [StudentController::class, 'store'])->name('student.store');
+    Route::put('student/{studentId}', [StudentController::class, 'update'])->name('student.update');
 });
 
 Route::get('/welcome', function () {

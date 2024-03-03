@@ -48,7 +48,6 @@ class User extends Authenticatable
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class);
-
     }
 
     public function journalCourses()
@@ -56,7 +55,7 @@ class User extends Authenticatable
         return $this->morphedByMany(Course::class, 'journalable', 'journal');
     }
 
-    public function journalLessons()
+    public function lessons()
     {
         return $this->morphedByMany(Lesson::class, 'journalable', 'journal');
     }

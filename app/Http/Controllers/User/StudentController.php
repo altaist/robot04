@@ -15,7 +15,14 @@ class StudentController extends BaseController
      */
     public function index()
     {
-        return $this->inertiaFromResource('\Techer\User', StudentResource::collection(User::get()));
+        $students = User::get();
+        return $this->inertiaFromResource('\Teacher\Student', StudentResource::collection($students));
+    }
+
+    public function studentsForCourse()
+    {
+        $students = User::get();
+        return $this->inertiaFromResource('\Teacher\Student', StudentResource::collection($students));
     }
 
     /**
@@ -37,9 +44,9 @@ class StudentController extends BaseController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return $this->inertiaFromResource('Teacher/Student', StudentResource::make($user));
     }
 
     /**
