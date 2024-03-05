@@ -1,3 +1,4 @@
+import ref from 'vue';
 import axios from 'axios';
 
 const getSubmitActionRouter = (formData) => {
@@ -15,21 +16,12 @@ const requestApi = (url, method, data) => {
     })
 }
 
+const attachedStudents = ref([]);
 
-export const useStudents = (ui) =>{
-
-
-    const saveStudent = (formData) => {
-
-        return requestApi(
-            getSubmitActionRouter(formData),
-            getSubmitMethod(formData),
-            formData
-        )
-    }
-
+export const useCourses = (ui) =>{
+    
     return {
-        saveStudent
+        attachedStudents
     }
 
 }

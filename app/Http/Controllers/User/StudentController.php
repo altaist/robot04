@@ -60,9 +60,19 @@ class StudentController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $rules = [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+        ];
+
+        $validated = $request->validate($rules);
+        $user->first_name = $validated['first_name'];
+        $user->last_name = $validated['last_name'];
+
+        $user->save();
+        return new StudentResource($user);
     }
 
     /**

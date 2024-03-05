@@ -13,7 +13,8 @@
 
         <template v-slot:page>
             <div>
-                <q-card class="my-card" flat bordered>
+                <CourseHeader :item="course" v-model="tab" @click:edit="dialogCourseFormEdit = true"/>
+                <q-card class="my-card" flat bordered v-if="false">
                     <q-card-section>
                         <!--div class="text-overline text-orange-9">Overline</div-->
                         <div class="text-h5 q-mt-sm q-mb-xs" @click="dialogCourseFormEdit = true">
@@ -95,21 +96,7 @@
                         <!--div class="text-h4">Ученики</div-->
                     </div>
                     <div class="q-mt-md">
-                        <q-list bordered separator>
-                            <q-item v-for="item in courseStudents" v-ripple class="q-pa-md" :href="route('teacher.student', item.id)">
-                                <q-item-section>
-                                    <q-item-label>{{ item.name }}</q-item-label>
-                                    <q-item-label caption>{{ item.first_name }}
-                                        {{ item.last_name }}</q-item-label>
-                                </q-item-section>
-                                <q-item-section side top v-if="iSUserEditable">
-                                    <q-toggle color="orange" v-model="attachedStudents" :val="item.id" @update:model-value="onToggle" />
-                                </q-item-section>
-                            </q-item>
-                            <q-inner-loading :showing="showLoading">
-                                <q-spinner-gears size="50px" color="primary" />
-                            </q-inner-loading>
-                        </q-list>
+                        <StudentsList :items="courseStudents" />
                     </div>
 
                     <div class="q-mt-md">
@@ -189,6 +176,8 @@ import Layout from "@/Layouts/QuasarLayoutDefault.vue";
 import LessonEditForm from "@/Components/Edu/Lesson/LessonEditForm.vue";
 import CourseEditForm from "@/Components/Edu/Course/CourseEditForm.vue";
 import ListDefault from "@/Components/Edu/ListDefault.vue"
+import StudentsList from '@/Components/Edu/Student/StudentsList.vue';
+import CourseHeader from '@/Components/Edu/Course/CourseHeader.vue';
 
 const page = usePage();
 console.log(page.props.data);
@@ -250,12 +239,11 @@ const onLessonSaved = (formData) => {
 const onLessonCanceled = () => dialogFormEdit.value = false;
 
 const onCourseSaved = (formData) => {
+    course.value.title = formData.title;
     dialogCourseFormEdit.value = false;
 }
 
 const onCourseCanceled = () => dialogCourseFormEdit.value = false;
+
+const attachedStudents = ref([]);
 </script>
-./Composables/lesson.js
-@/shared/utils.js
-../../Composables/lesson.js
-resources/shared/utils.js

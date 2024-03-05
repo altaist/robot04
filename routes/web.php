@@ -39,7 +39,7 @@ Route::prefix('teacher')->group(function () {
 
     Route::get('student/{user}', [StudentController::class, 'show'])->name('teacher.student');
     Route::post('student', [StudentController::class, 'store'])->name('student.store');
-    Route::put('student/{studentId}', [StudentController::class, 'update'])->name('student.update');
+    Route::patch('student/{user}', [StudentController::class, 'update'])->name('student.update');
 });
 
 Route::get('/welcome', function () {
