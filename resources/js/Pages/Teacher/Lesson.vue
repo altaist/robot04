@@ -5,7 +5,7 @@
         <template v-slot:title>
             <div class="q-ml-md">
                 <q-breadcrumbs>
-                    <q-breadcrumbs-el label="Учитель" :href="route('teacher.home')" class="text-white" />
+                    <q-breadcrumbs-el label="Учитель" :href="route('teacher.home')" class="text-white text-underline" />
                     <q-breadcrumbs-el :label="'Группа '" :href="route('teacher.course', lesson.course.id)" class="text-white" />
                     <q-breadcrumbs-el :label="'Занятие'" class="text-white" />
                 </q-breadcrumbs>

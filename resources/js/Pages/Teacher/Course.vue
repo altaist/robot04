@@ -149,11 +149,9 @@
                     </template>
                 </q-table>
             </div>
-            <q-dialog v-model="dialogFormEdit">
-                <q-card style="width: 100%" class="q-pb-md">
-                    <LessonEditForm :formData="newLesson" @form:saved="onLessonSaved" @form:canceled="onLessonCanceled"></LessonEditForm>
-                </q-card>
-            </q-dialog>
+
+            <LessonEditForm :item="newLesson" v-model="dialogFormEdit" @form:submitted="onLessonSaved" @form:canceled="onLessonCanceled"></LessonEditForm>
+
 
             <q-dialog v-model="dialogCourseFormEdit">
                 <q-card style="width: 100%" class="q-pb-md">

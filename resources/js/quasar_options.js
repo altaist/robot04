@@ -6,5 +6,7 @@ import quasarLang from "quasar/lang/ru";
 export default {
     lang: quasarLang,
     plugins: {},
-    extras: [],
+    extras: [
+        'roboto-font'
+    ],
 };

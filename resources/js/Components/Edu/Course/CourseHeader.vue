@@ -3,13 +3,16 @@
         <q-card-section horizontal>
             <q-card-section class="col-10 flex-left">
                 <!--div class="text-overline text-orange-9" v-if="false">Важный статус</div-->
-                <div class="text-h5 text-deep-orange q-mt-sm q-mb-xs" >
-                    {{ item.title }} <q-btn flat icon="edit" color="black" size="sm" @click="emit('click:edit')" />
+                <div class="text-h5 text-primary q-mt-sm q-mb-xs" >
+                    {{ item.title }}
                 </div>
                 <div class="text-caption">
                     Расписание:
                     {{ f_schedule(item.schedule) }}
                 </div>
+            </q-card-section>
+            <q-card-section class="col-2 flex flex-top flex-center">
+                <q-btn flat icon="edit" color="secondary" @click="emit('click:edit')" />
             </q-card-section>
 
         </q-card-section>

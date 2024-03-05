@@ -6,7 +6,7 @@
                 {{ item.last_name }}</q-item-label>
         </q-item-section>
         <q-item-section side top v-if="attachedItems">
-            <q-toggle color="orange" v-model="attachedItems" :val="item.id" />
+            <q-toggle color="secondary" v-model="attachedItems" :val="item.id" />
         </q-item-section>
     </q-item>
     <!--q-inner-loading :showing="showLoading">

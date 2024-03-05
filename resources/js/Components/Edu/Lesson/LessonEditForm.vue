@@ -1,5 +1,6 @@
 <template>
     <q-dialog v-model="visibility">
+
         <q-card style="width: 100%" class=" q-pb-md">
             <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-sm">
                 <q-card-section class="text-h5">

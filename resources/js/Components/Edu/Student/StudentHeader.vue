@@ -3,15 +3,18 @@
         <q-card-section horizontal>
             <q-card-section class="col-10 flex-left">
                 <!--div class="text-overline text-orange-9" v-if="false">Важный статус</div-->
-                <div class="text-h5 q-mt-sm q-mb-xs text-deep-orange">
-                    {{ item.first_name || item.name }} <q-btn flat icon="edit" color="orange" size="sm" @click="emit('click:edit')" />
+                <div class="text-h5 q-mt-sm q-mb-xs text-primary">
+                    {{ item.first_name || item.name }}
                 </div>
                 <div class="text-subtitle2">
                     {{ item.first_name }} {{ item.last_name }}
                 </div>
             </q-card-section>
-            <q-card-section class="col-2 flex flex-top flex-center">
+            <!--q-card-section class="col-2 flex flex-top flex-center">
                 <q-btn flat icon="account_circle" size="lg" color="deep-orange"/>
+            </q-card-section-->
+            <q-card-section class="col-2 flex flex-top flex-center">
+                <q-btn flat icon="edit" color="secondary" @click="emit('click:edit')" />
             </q-card-section>
         </q-card-section>
         <q-separator />

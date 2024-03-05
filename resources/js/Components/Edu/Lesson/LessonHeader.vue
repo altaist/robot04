@@ -2,14 +2,16 @@
     <q-card class="my-card " rounded>
         <q-card-section horizontal @click="emit('click:edit')">
             <q-card-section class="col-10 flex-left">
-                <div class="text-h5 text-deep-orange q-mt-sm q-mb-xs">
-                    {{ getLessonTitle(item) }} <q-btn flat icon="edit" color="black" size="sm" @click="emit('click:edit')" />
+                <div class="text-h5 text-primary q-mt-sm q-mb-xs">
+                    {{ getLessonTitle(item) }}
                 </div>
                 <div class="text-caption">
                     Дата: {{ f_date(item.date_start) }}
                 </div>
             </q-card-section>
-
+            <q-card-section class="col-2 flex flex-top flex-center">
+                <q-btn flat icon="edit" color="secondary" @click="emit('click:edit')" />
+            </q-card-section>
         </q-card-section>
         <q-separator />
         <q-card-actions class="q-mb-sm">
