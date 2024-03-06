@@ -8,31 +8,7 @@
                 </q-card-section>
                 <q-card-section>
                     <div style="max-width: 600px">
-                        <q-input filled v-model="formData.date_start" label="Дата и время урока">
-                            <template v-slot:prepend>
-                                <q-icon name="event" class="cursor-pointer">
-                                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                        <q-date v-model="formData.date_start" mask="YYYY-MM-DD HH:mm">
-                                            <div class="row items-center justify-end">
-                                                <q-btn v-close-popup label="Close" color="primary" flat />
-                                            </div>
-                                        </q-date>
-                                    </q-popup-proxy>
-                                </q-icon>
-                            </template>
-
-                            <template v-slot:append>
-                                <q-icon name="access_time" class="cursor-pointer">
-                                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                        <q-time v-model="formData.date_start" mask="YYYY-MM-DD HH:mm" format24h>
-                                            <div class="row items-center justify-end">
-                                                <q-btn v-close-popup label="Close" color="primary" flat />
-                                            </div>
-                                        </q-time>
-                                    </q-popup-proxy>
-                                </q-icon>
-                            </template>
-                        </q-input>
+                        <date-time-input v-model="formData.date_start"/>
                     </div>
                     <div class="q-mt-md">
                         <q-input filled v-model="formData.title" label="Название урока" />
@@ -65,6 +41,7 @@
 import { ref, toRefs } from 'vue'
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { useUi } from '@composables/ui'
+import DateTimeInput from '../DateTimeInput.vue';
 
 const props = defineProps({
     isShort: {
