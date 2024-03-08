@@ -52,11 +52,26 @@ class CourseTest extends BaseTestCase
         $this->assertNotNull($user);
         $courses = $user->courses;
         $this->assertCount(2, $courses);
+    }
 
+    public function test_payments(): void
+    {
+        $user = User::find(11);
+        $payer = User::find(1);
 
+        $data = [
+            'user_id' => $user->id,
+            'payer_id' => $payer->id,
+            'amount' => 10
+        ];
+        $response = $this->postJson('/teacher/student/payments', $data);
+        $response->assertStatus(200);
+        $response->assertJsonFragment(['user_id'=>$user->id, 'amount' => 10]);
 
+        $response = $this->postJson('/teacher/student/payments', $data);
+        $response->assertJsonFragment(['user_id'=>$user->id, 'amount' => 10]);
 
-
+        $this->assertEquals(20, $user->payments_sum);
 
     }
 

@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
             'product' => 'App\Models\Product',
             'course' => 'App\Models\Course',
             'lesson' => 'App\Models\Lesson',
+            'user' => 'App\Models\User',
         ]);
     }
 }

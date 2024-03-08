@@ -4,6 +4,7 @@ namespace Tests\Feature\Edu;
 
 use App\Models\Journal;
 use App\Models\Lesson;
+use App\Models\User;
 use Tests\Feature\BaseTestCase;
 
 class StudentTest extends BaseTestCase
@@ -24,4 +25,6 @@ class StudentTest extends BaseTestCase
         $this->assertCount(3, $lesson->journalRecords);
 
     }
+
+
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\Lesson\LessonController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\StudentController;
 use Illuminate\Foundation\Application;
@@ -40,6 +41,9 @@ Route::prefix('teacher')->group(function () {
     Route::get('student/{user}', [StudentController::class, 'show'])->name('teacher.student');
     Route::post('student', [StudentController::class, 'store'])->name('student.store');
     Route::patch('student/{user}', [StudentController::class, 'update'])->name('student.update');
+
+    Route::post('student/payments', [PaymentController::class, 'store'])->name('student.payment');
+
 });
 
 Route::get('/welcome', function () {
