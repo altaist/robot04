@@ -24,6 +24,9 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return view('robots');
 });
+Route::get('/cosmos', function () {
+    return view('cosmos');
+});
 
 Route::prefix('teacher')->group(function () {
     Route::get('journal', [JournalController::class, 'index']);
