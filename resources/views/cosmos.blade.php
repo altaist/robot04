@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#712cf9">
-    <meta name="description" content="Детский университет на Алтае">
+    <meta name="description" content="Большое космическое путешествие">
 
     <title>Большое космическое путешествие</title>
 
@@ -427,7 +427,7 @@
       </a>
     </header-->
 
-            <div class="p-3 mb-4 bg-body-tertiary rounded-3">
+            <div class="p-3 mx-3 mb-4 bg-body-tertiary rounded-3">
                 <div class="container-fluid py-5 ">
                     <h1 class="display-1 fw-bold text-danger mb-4">Большое космическое путешествие</h1>
                     <div class="my-3 fs-4 text-black">Все на борт! Строим ракеты, отправляемся на луну и изучаем наш спутник на луноходах</div>
@@ -437,16 +437,16 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="p-3">
-                        <div class="my-3 my-md-3">С 12 марта по 12 апреля инженерная школа Robot04 проводит космический марафон для детей. Изучаем космическую механику, строим и экспериментируем, придумываем и показываем.</div>
+                        <div class="my-3 my-md-3">С 15 марта по 12 апреля инженерная школа Robot04 проводит космический марафон для космических инженеров. Изучаем космическую механику, строим и экспериментируем, придумываем, показываем и побеждаем!</div>
                         <div class="my-5 my-md-3">На занятиях мы соберем разные модели ракет и вездеходов. А еще расскажем, что такое космос, как летают рекеты, что ждет путешественника на луне.</div>
-                        <div class="my-5 my-md-3">Для прохождения марафона надо будет выполнить 5 заданий. Для этого приедтся поработать головой и руками даже дома. Но все это не займет много времени.</div>
+                        <div class="my-5 my-md-3">Для прохождения марафона надо будет выполнить 5 заданий. Для этого придется поработать головой и руками даже дома. Но все это не займет много времени.</div>
                         <!--div class="my-5 fs-2 ">В конце нас ждет космическая презентация. Лучшим космоинженерам - призы с космической тематикой!</div-->
                     </div>
 
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="h-100 p-4 bg-body-tertiary text-black text-center border rounded-3 my-1 fs-1">
-                        В конце нас ждет космическая презентация. Лучшим космоинженерам - призы с космической тематикой!
+                        В конце нас ждет космическая презентация. Лучшим космоинженерам - особые призы с космической тематикой!
                     </div>
                 </div>
             </div>
@@ -463,8 +463,8 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card card-cover h-100 overflow-hidden text-bg-tertiary rounded-4 shadow-lg" style123="background-image: url('unsplash-photo-1.jpg');">
-                            <div class="d-flex flex-column h-100 p-4 pb-3 text-black text-shadow-1">
+                        <div class="card card-cover h-100 overflow-hidden bg-warning rounded-4 shadow-lg" style123="background-image: url('unsplash-photo-1.jpg');">
+                            <div class="d-flex flex-column h-100 p-4 pb-3 text-white text-shadow-1">
                                 <h3 class="pt-3 mt-2 mb-4 display-6 lh-1 fw-bold">Придумывай</h3>
                                 <div class="mb-3">Собери свой собственный космический аппарат из того, что можно найти дома</div>
                             </div>
@@ -479,8 +479,8 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card card-cover h-100 overflow-hidden text-bg-white text-black rounded-4 shadow-lg" style123="background-image: url('unsplash-photo-1.jpg');">
-                            <div class="d-flex flex-column h-100 p-4 pb-3 text-black text-shadow-1">
+                        <div class="card card-cover h-100 overflow-hidden bg-warning text-warning rounded-4 shadow-lg" style123="background-image: url('unsplash-photo-1.jpg');">
+                            <div class="d-flex flex-column h-100 p-4 pb-3 text-white text-shadow-1">
                                 <h3 class="pt-3 mt-2 mb-4 display-6 lh-1 fw-bold">Наблюдай</h3>
                                 <div class="mb-3">Фотографируй звездное небо, собирай данные о климатических условиях</div>
                             </div>
@@ -490,9 +490,55 @@
                         <div class="card card-cover h-100 overflow-hidden text-bg-danger rounded-4 shadow-lg" style123="background-image: url('unsplash-photo-1.jpg');">
                             <div class="d-flex flex-column h-100 p-4 pb-3 text-white text-shadow-1">
                                 <h3 class="pt-3 mt-2 mb-4 display-6 lh-1 fw-bold">Побеждай!</h3>
-                                <div class="mb-3">Финальный суперквест. Показываем, что мы построили и проходим увлекательный квест</div>
+                                <div class="mb-3">Финальное испытание. Показываем, что мы построили и проходим увлекательный квест</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-5 px-3" id="info">
+                <h1 class="my-3 pb-2 border-bottom">Подробные условия</h1>
+                <div class="row">
+                    <div class="col-12 col-md-4 my-3 my-md-3"><div class="display-6">На занятиях</div>Наше путешествие начинается на занятиях. Не пропускай ни одного и получишь больше баллов за сборку моделей. Вместе с друзьми собери устройства для Зоны пуска или Зоны лунных приключений. Каждая новая модель - балл для тебя и команды.</div>
+                    <div class="col-12 col-md-4 my-3 my-md-3"><div class="display-6">Дома</div>Придумай и создай из подручных материалов модель инопланетного корабля. Здесь главное не техническое совершенство, а идея. Например, придумай, как взять с собой кошку и какие книжки тебе пригодятся в пути. Покажи свое придуманное устройство на видео и выложи в группу. Всем, прошедшим это задание - дополнительные баллы и семейные подарки!</div>
+                    <div class="col-12 col-md-4 my-3 my-md-3"><div class="display-6">Любознательным</div>Космические инженеры - сложная профессия. Нужно не только многое уметь, но и многое знать. Мы подготовили мини-учебник с интересными фактами о космосе. Нужно будет его прочитать и ответить на вопросы, чтобы заработать дополнительные баллы.</div>
+                    <div class="col-12 col-md-4 my-3 my-md-3"><div class="display-6">Наблюдай</div>Космос ближе, чем тебе кажется! Кажду ночь можно увидеть знакомые созвездия и даже планеты, если правильно смотреть. Фотографируй ночное небо, пришли нам и расскажи со своих снимках. А если не получится ночью, собирай информацию днем. Фиксируй температуру, ветер и яркость солнца - это все пригодится для настоящего инженера.</div>
+                    <div class="col-12 col-md-4 my-3 my-md-3"><div class="display-6">Празднуй</div>Ну и всех, кто прошел предварительные испытания, ждет праздник космонавтики! Квесты, сборка космодрома, виртуальная реальность - все, чтобы закончить путешествие победителем!</div>
+                </div>
+            </div>
+
+            <div class="my-5 px-3" id="info">
+                <h1 class="my-3 pb-2 border-bottom">Примеры проектов</h1>
+                <div class="row">
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_1.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_2.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_3.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_4.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_5.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_6.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_7.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_8.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_9.jpg" width="100%">
+                    </div>
+                    <div class="col-12 col-md-6 my-2">
+                        <img src="/img/600x600_cosmos_10.jpg" width="100%">
                     </div>
                 </div>
             </div>
