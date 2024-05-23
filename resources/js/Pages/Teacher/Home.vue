@@ -10,8 +10,15 @@
             </div>
         </template>
         <template v-slot:page>
+            <div class="q-px-sm">
+                <div class="row q-col-gutter-sm">
+                    <div class="col-12" v-for="item in courses">
+                        <course-card :item="item" :href="route('teacher.course', item.id)"></course-card>
+                    </div>
+                </div>
+            </div>
 
-            <div>
+            <div v-if="false">
                 <div class="q-my-md">
                     <q-list bordered separator>
                         <q-item v-for="item in courses" v-ripple class="q-pa-md" :href="route('teacher.course', item.id)">
@@ -27,31 +34,6 @@
                         </q-inner-loading>
                     </q-list>
                 </div>
-                <div v-if="false">
-                    <q-table title="Мои группы" :rows="courses" :columns="columns" :pagination="{ rowsPerPage: 50 }" row-key="id" style="font-size: 20px">
-                        <template v-slot:header-cell="props">
-                            <q-th :props="props" style="font-size: large">
-                                {{ props.col.label }}
-                            </q-th>
-                        </template>
-                        <template v-slot:body="props">
-                            <q-tr :props="props" @click="onRowClick(props.row)">
-                                <q-td key="pos" :props="props">
-                                    {{ props.row.pos }}
-                                </q-td>
-                                <q-td key="course" :props="props">
-                                    <a :href="'/teacher/course/' + props.row.id + ''">{{ props.row.title }}</a>
-                                </q-td>
-                                <q-td key="teacher" :props="props">
-                                    2232323 {{ props.row.teacher.name }}
-                                </q-td>
-                                <q-td key="schedule" :props="props">
-                                    {{ f_schedule(props.row.schedule) }}
-                                </q-td>
-                            </q-tr>
-                        </template>
-                    </q-table>
-                </div>
             </div>
         </template>
 
@@ -64,6 +46,7 @@ import { Head } from "@inertiajs/vue3";
 import { usePage } from "@inertiajs/vue3";
 import { f_date, f_schedule } from '@shared/utils.js'
 import Layout from "@/Layouts/QuasarLayoutDefault.vue";
+import CourseCard from "@/Components/Edu/Course/CourseCard.vue";
 
 const page = usePage();
 console.log(page.props.data);

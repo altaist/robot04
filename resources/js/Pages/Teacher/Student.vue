@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Ученик" />
 
     <Layout title="Ученик" @fab:click="onFabClick">
@@ -13,10 +14,7 @@
 
         <template v-slot:page>
             <div class="q-gutter-md">
-                <StudentHeader
-                    :item="student"
-                    @click:edit="visibilityForEditForm = true"
-                />
+                <StudentHeader :item="student" @click:edit="visibilityForEditForm = true" />
 
             </div>
 
@@ -33,11 +31,33 @@
                 </q-tab-panel>
                 <q-tab-panel name="payments" class="q-pa-none">
                     <div class="q-mt-md">
-                        <ListDefault title="Платежи" :items="payments" item-title-field="title" item-sub-title-field="date_start" />
+                        <q-card style="width: 100%" class=" q-pb-md">
+                            <q-form @submit="onSubmit" @reset="emit('form:canceled')" class="q-gutter-sm">
+                                <!--q-card-section>
+                                    <div>
+                                        <q-input filled v-model="formData.first_name" label="Имя" />
+                                    </div>
+                                    <div class="q-mt-md">
+                                        <q-input filled v-model="formData.last_name" label="Фамилия" />
+                                    </div>
+
+                                </q-card-section-->
+
+                                <q-card-section>
+                                    <div class="text-right">
+                                        <q-btn label="Добавить" type="submit" color="primary" :loading="loading" />
+                                    </div>
+                                </q-card-section>
+
+                            </q-form>
+                        </q-card>
+                        <ListDefault title="Платежи" :items="payments" item-title-field="title"
+                            item-sub-title-field="date_start" />
                     </div>
                 </q-tab-panel>
             </q-tab-panels>
-            <StudentEditForm :item="student" v-model:visibility="visibilityForEditForm" @form:submitted="onSubmit" @form:canceled="onCanceled" />
+            <StudentEditForm :item="student" v-model:visibility="visibilityForEditForm" @form:submitted="onSubmit"
+                @form:canceled="onCanceled" />
         </template>
     </Layout>
 </template>
@@ -66,7 +86,7 @@ const courses = ref(student.value.courses);
 const lessons = ref(student.value.lessons);
 const payments = ref([]);
 
-let studentEditable = ref({...student.value});
+let studentEditable = ref({ ...student.value });
 
 
 const ui = useUi();

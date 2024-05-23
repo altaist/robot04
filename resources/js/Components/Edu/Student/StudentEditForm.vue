@@ -1,6 +1,5 @@
 <template>
     <q-dialog v-model="visibility">
-        <q-card style="width: 100%" class="q-pb-md">
             <q-card style="width: 100%" class=" q-pb-md">
                 <q-form @submit="onSubmit" @reset="emit('form:canceled')" class="q-gutter-sm">
                     <q-card-section class="text-h5">
@@ -27,7 +26,6 @@
                     </q-card-section>
 
                 </q-form>
-            </q-card>
         </q-card>
     </q-dialog>
 </template>
