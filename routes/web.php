@@ -4,8 +4,10 @@ use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\Lesson\LessonController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RootController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\StudentController;
+use App\Http\Controllers\WebAppController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,12 +23,21 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return view('robots');
-});
 Route::get('/cosmos', function () {
     return view('cosmos');
 });
+Route::get('/astro', function () {
+    return view('astro');
+});
+Route::post('/subscribe', function () {
+    return ['status' => 'ok', 'link' => 'dfa7b'];
+});
+Route::get('/lk/{id}', function () {
+    return view('lk');
+});
+
+Route::get('/', [RootController::class, 'index'])->name('root');
+Route::get('/webapp', [RootController::class, 'index'])->name('webapp');
 
 Route::prefix('teacher')->group(function () {
     Route::get('journal', [JournalController::class, 'index']);

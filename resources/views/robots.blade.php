@@ -434,6 +434,16 @@
                     <a class="btn btn-danger btn-lg" href="#register" role="button">Записаться</a>
                 </div>
             </div>
+            <div class="p-3 mb-4">
+                <div class="row">
+                    <div class="col-md-4 text-center ">
+                        <a href="/storage/summer2024.pdf" target="_blank"><img src="img/summer2024.jpg" height="500px" /></a>
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdXHBnLopvZIjoAP62igCsvNusRPGfnlCknmp5jk6JpurNkTQ/viewform?embedded=true" width="100%"  height="500px" frameborder="0" marginheight="0" marginwidth="0">Загрузка…</iframe>
+                    </div>
+                </div>
+            </div>
 
             <div class="row align-items-md-stretch">
                 <div class="col-md-4 my-1">
@@ -443,14 +453,14 @@
                     </div>
                 </div>
                 <div class="col-md-4 my-1">
-                    <div class="h-100 p-5 bg-danger text-white border rounded-3 my-1">
+                    <div class="h-100 p-5 bg-danger text-white border rounded-3">
                         <h2>Программирование</h2>
                         <p>Основы информатики и программирования. Профориентация под руководством профессиональных программистов</p>
 
                     </div>
                 </div>
                 <div class="col-md-4 my-1">
-                    <div class="h-100 p-5 bg-success text-white border rounded-3 my-1">
+                    <div class="h-100 p-5 bg-success text-white border rounded-3">
                         <h2>Искусственный интеллект</h2>
                         <p>Новые технологии становятся ближе. Доступная теория и практика с ChatGPT и виртуальной реальностью</p>
 
