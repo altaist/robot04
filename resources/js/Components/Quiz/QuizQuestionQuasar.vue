@@ -1,11 +1,12 @@
 <template>
         <QuizQuestion :question="question">
             <template #content="{content}">
-                <div>{{ content }}</div>
+                <div class="q-mt-xl"><div class="q-mt-md q-pa-md">{{ content }}</div></div>
+
             </template>
 
             <template #answers="{variants, setAnswer}">
-                <div class="q-my-md">
+                <div class="q-mt-xl q-pa-sm fixed-bottom bg-white">
                     <div class="row q-col-gutter-sm">
                         <div :class="getColClass(variants)" v-for="variant in variants">
                             <q-btn :label="variant.txt" @click="setAnswer(variant)" class="full-width" />

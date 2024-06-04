@@ -1,5 +1,7 @@
 <template>
-    <QuizView :quiz="dataJson"></QuizView>
+    <div class="fit">
+        <QuizView :quiz="dataJson"></QuizView>
+    </div>
 </template>
 
 <script setup>
@@ -51,26 +53,26 @@ const dataJson = {
             as: [1]
         },
         {
-            txt: 'Вопрос 2',
+            txt: 'Сколько десятков в числе 300?',
             vs: [
                 {
                     idx: 0,
-                    txt: 'Вариант1',
+                    txt: '10',
                 },
                 {
                     idx: 1,
-                    txt: 'Вариант2',
+                    txt: '20',
                 },
                 {
                     idx: 3,
-                    txt: 'Вариант3',
+                    txt: '30',
                 },
                 {
                     idx: 4,
-                    txt: 'Вариант4',
+                    txt: '40',
                 },
             ],
-            as: [4, 1]
+            as: [3]
         },
     ],
     settings: {

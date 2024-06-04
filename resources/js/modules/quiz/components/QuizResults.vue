@@ -1,7 +1,7 @@
 <template>
     <div>
         <slot name="header"></slot>
-        <slot name="results" :results="results" :handlerClose="onClose" :handlerRepeat="onRepeat"></slot>
+        <slot name="results" :results="results" :isSuccess="isSuccess" :handlerClose="onClose" :handlerRepeat="onRepeat"></slot>
     </div>
 </template>
 
@@ -14,6 +14,10 @@ const props = defineProps({
     },
     results: {
         type: Object,
+    },
+
+    isSuccess: {
+        type: Boolean,
     },
 });
 

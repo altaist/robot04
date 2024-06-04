@@ -12,8 +12,8 @@ const useQuiz = (data) => {
     const settings = quizData.value.settings || {};
     const questions = quizData.value.qs || [{}];
     const currentQuiestionIndex = ref(0);
-    const answers = [];
     const resultsHistory = [];
+    let answers = [];
 
     const getQuestions = () => {
         return questions;
@@ -57,6 +57,7 @@ const useQuiz = (data) => {
     }
 
     const reset = () => {
+        answers = [];
         moveQuestionFirst();
     }
 
@@ -83,14 +84,16 @@ const useQuiz = (data) => {
     }
 
     const getAnswers = () => answers;
-    const getCurrentQuestionAnswers = () => answers[currentQuiestionIndex] || null;
+    const getCurrentQuestionAnswers = () => (answers[currentQuiestionIndex.value] || []);
     const setAnswer = (answer) => {
         let questionAnswers = getCurrentQuestionAnswers();
-        if(!questionAnswers) {
-            questionAnswers = [];
-            answers.push(questionAnswers);
-        }
+        // console.log(currentQuiestionIndex.value, questionAnswers);
+        // if(!questionAnswers) {
+        //     questionAnswers = [];
+        //     answers.push(questionAnswers);
+        // }
         questionAnswers.push(answer.idx);
+        answers[currentQuiestionIndex.value] = questionAnswers;
         console.log(answers);
     }
 
@@ -185,6 +188,8 @@ const useQuiz = (data) => {
                 wrongQuestions.push(question);
             }
         }
+
+        result.isSuccess = !result.wrong;
 
         result.questionsLog = withLog ? { passedQuestions, wrongQuestions, skippedQuestions } : null;
 
