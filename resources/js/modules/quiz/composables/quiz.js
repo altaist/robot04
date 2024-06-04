@@ -9,9 +9,10 @@ const Q_TYPE_CROSS = 5;
 
 const useQuiz = (data) => {
     const quizData = ref(data);
-    const currentQuiestionIndex = ref(0);
-    const questions = quizData.value.qs || [{}];
     const settings = quizData.value.settings || {};
+    const questions = quizData.value.qs || [{}];
+    const currentQuiestionIndex = ref(0);
+    const answers = [];
     const resultsHistory = [];
 
     const getQuestions = () => {
@@ -39,6 +40,8 @@ const useQuiz = (data) => {
     }
 
     const getCurrentQuestion = () => getQuestion(currentQuiestionIndex.value);
+    const getCurrentQuestionIndex = () => currentQuiestionIndex.value;
+    const getTotalQuestionsNum = () => questions.length;
 
     const moveQuestionNext = () => {
         currentQuiestionIndex.value = normalizeQuestionIndex(currentQuiestionIndex.value + 1);
@@ -47,6 +50,14 @@ const useQuiz = (data) => {
     const moveQuestionPrev = () => {
         currentQuiestionIndex.value = normalizeQuestionIndex(currentQuiestionIndex.value - 1);
         return getCurrentQuestion();
+    }
+    const moveQuestionFirst = () => {
+        currentQuiestionIndex.value = 0;
+        return getCurrentQuestion();
+    }
+
+    const reset = () => {
+        moveQuestionFirst();
     }
 
     const isLastQuestion = () => {
@@ -71,11 +82,20 @@ const useQuiz = (data) => {
         return question.as || [];
     }
 
+    const getAnswers = () => answers;
+    const getCurrentQuestionAnswers = () => answers[currentQuiestionIndex] || null;
+    const setAnswer = (answer) => {
+        let questionAnswers = getCurrentQuestionAnswers();
+        if(!questionAnswers) {
+            questionAnswers = [];
+            answers.push(questionAnswers);
+        }
+        questionAnswers.push(answer.idx);
+        console.log(answers);
+    }
+
     const getCurrentQuestionVariants = () => {
         return getQuestionVariants(getCurrentQuestion());
-    }
-    const getCurrentQuestionAnswers = () => {
-        return getQuestionAnswers(getCurrentQuestion());
     }
 
     const checkIsAnswerIndexCorrect = (question, index) => {
@@ -113,7 +133,7 @@ const useQuiz = (data) => {
     const checkQuestionAnswers = (question, userQuestionAnswers) => {
         const questionAnswers = getQuestionAnswers(question);
         const questionType = question.type;
-        console.log('Check question ', questionAnswers, userQuestionAnswers);
+        // console.log('Check question ', questionAnswers, userQuestionAnswers);
 
         if(questionAnswers.length == 0){
             return 1; // No question answers - all user's answers is ok
@@ -130,7 +150,8 @@ const useQuiz = (data) => {
         return checkChoiceAnswers(questionAnswers, userQuestionAnswers)
     }
 
-    const calculateResult = (userAnswers, withLog = true) => {
+    const calculateResult = (withLog = true) => {
+        const userAnswers = getAnswers();
         const result = {
             total: questionsLength(),
             passed: 0,
@@ -145,6 +166,7 @@ const useQuiz = (data) => {
 
         // for each question
         for (let i = 0; i < userAnswers.length; i++) {
+            const question = getQuestion(i);
             const questionUserAnswers = userAnswers[i] || [];
             if (questionUserAnswers.length == 0) {
                 skippedQuestions.push(question);
@@ -152,7 +174,6 @@ const useQuiz = (data) => {
                 continue;
             }
 
-            const question = getQuestion(i);
             const weight = 1; // вес правильно решенного вопроса
             const passed = checkQuestionAnswers(question, questionUserAnswers);
             if (passed) {
@@ -176,12 +197,20 @@ const useQuiz = (data) => {
 
     return {
         getCurrentQuestion,
+        getCurrentQuestionIndex,
+        getTotalQuestionsNum,
         moveQuestionNext,
         moveQuestionPrev,
+        moveQuestionFirst,
         isLastQuestion,
         isFirstQuestion,
         getSetting,
+        getAnswers,
+        getCurrentQuestionAnswers,
+        setAnswer,
         calculateResult,
+        reset,
+        addResultToHistory,
 
         resultsHistory
     }

@@ -1,10 +1,10 @@
 <template>
-    <Quiz :quiz-data="dataJson"></Quiz>
+    <QuizView :quiz="dataJson"></QuizView>
 </template>
 
 <script setup>
 import { ref, toRefs } from 'vue'
-import Quiz from '@/Components/Quiz/Quiz.vue';
+import QuizView from '@/Components/Quiz/QuizViewQuasar.vue';
 
 defineProps({
     visibility: {
@@ -29,7 +29,7 @@ const dataJson = {
     title: "Название задания",
     qs: [
         {
-            title: 'Вопрос1',
+            txt: 'Вопрос 1',
             vs: [
                 {
                     idx: 0,
@@ -51,7 +51,7 @@ const dataJson = {
             as: [1]
         },
         {
-            title: 'Вопрос2',
+            txt: 'Вопрос 2',
             vs: [
                 {
                     idx: 0,
