@@ -4,6 +4,7 @@ use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\Lesson\LessonController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RootController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\StudentController;
@@ -38,6 +39,10 @@ Route::get('/lk/{id}', function () {
 
 Route::get('/', [RootController::class, 'index'])->name('root');
 Route::get('/webapp', [RootController::class, 'index'])->name('webapp');
+
+Route::prefix('quiz')->group(function () {
+    Route::get('test', [QuizController::class, 'test']);
+});
 
 Route::prefix('teacher')->group(function () {
     Route::get('journal', [JournalController::class, 'index']);
