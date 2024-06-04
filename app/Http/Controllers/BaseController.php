@@ -29,7 +29,7 @@ abstract class BaseController extends BaseRoutingController
         return $this->response("ok");
     }
 
-    public function inertia(string $componentName, array $data)
+    public function inertia(string $componentName, array $data = [])
     {
         return Inertia::render($componentName, ["data" => $data]);
     }
