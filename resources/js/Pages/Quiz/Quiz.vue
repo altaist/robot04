@@ -1,12 +1,19 @@
 <template>
     <div class="fit">
-        <QuizView :quiz="dataJson"></QuizView>
+        <div v-if="!loading">
+            <QuizPage></QuizPage>
+        </div>
+        <div v-else>
+            Quiz loading...
+        </div>
     </div>
 </template>
 
 <script setup>
 import { ref, toRefs } from 'vue'
-import QuizView from '@/Components/Quiz/QuizViewQuasar.vue';
+//import QuizPage from '@/Components/Quiz/QuizViewQuasar.vue';
+import QuizPage from '@/modules/quiz/components/QuizPage.vue';
+import { useQuizApp } from '@/modules/quiz/composables/quizapp'
 
 defineProps({
     visibility: {
@@ -25,7 +32,17 @@ defineProps({
 });
 
 const emit = defineEmits(['question:completed', 'question:canceled']);
+const loading = ref(false);
+const loadQuiz = async () => {
+    const quizApp = useQuizApp();
+    loading.value = true;
+    const quiz = await quizApp.loadQuiz();
+    console.log(quiz)
+    loading.value = false;
+    return quiz;
+}
 
+const quizManager = loadQuiz();
 
 const dataJson = {
     title: "Название задания",

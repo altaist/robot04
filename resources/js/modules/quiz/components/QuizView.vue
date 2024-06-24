@@ -1,21 +1,22 @@
 <template>
-    <div v-if="currentState==0">
-        <slot name="start" :quiz="quiz" :onQuizStart="onQuizStart"></slot>
-    </div>
-    <div v-if="currentState==1">
-        <slot name="header" :quiz="quiz" :quizManager="quizManager" :onQuizHome="onQuizHome"></slot>
-        <slot name="questions" :question="activeQuestion" :onQuestionCompleted="onQuestionCompleted"></slot>
-        <slot name="footer"></slot>
-    </div>
-    <div v-if="currentState==2">
-        <slot name="results" :results="results" :onQuizRepeat="onQuizRepeat" :onQuizClose="onQuizClose"></slot>
-    </div>
+    <QuizHeader
+        @quiz:home="emit('quiz:home')"
+        :current-question-index="quizManager.getCurrentQuestionIndex() + 1"
+        :total-questions-num="quizManager.getTotalQuestionsNum()"/>
+    <QuizQuestion
+        :question="activeQuestion"
+        @question:completed="onQuestionCompleted"
+        @question:canceled="onQuestionCanceled">
+    </QuizQuestion>
+    <QuizFooter />
 </template>
 
 <script setup>
-import { computed, ref, toRefs } from 'vue'
-import { useQuiz } from '../composables/quiz'
-
+import { computed } from 'vue'
+import { useQuizApp } from '../composables/quizapp'
+import QuizHeader from './QuizHeader.vue';
+import QuizQuestion from './QuizQuestion.vue';
+import QuizFooter from './QuizFooter.vue';
 
 const props = defineProps({
     quiz: {
@@ -23,58 +24,27 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['quiz:completed', 'quiz:canceled']);
+const emit = defineEmits(['quiz:home', 'quiz:completed', 'question:completed'])
 
-const quizManager = useQuiz(props.quiz);
-const results = ref(null);
-const currentState = ref(0);
-
-quizManager.moveQuestionPrev();
-quizManager.moveQuestionPrev();
-
-console.log(quizManager.getCurrentQuestion());
-
-const questions = computed(() => {
-    return props.quizData.qs
-});
+const quizManager = useQuizApp().getCurrentQuiz();
 
 const activeQuestion = computed(() => {
     return quizManager.getCurrentQuestion();
 });
 
-const onQuizStart = () => {
-    currentState.value = 1;
-}
-
-const onQuizClose = () => {
-    onQuizHome();
-    emit('quiz:completed');
-}
-
-const onQuizRepeat = () => {
-    quizManager.reset();
-    currentState.value = 1;
-}
-
-const onQuizHome = () => {
-    quizManager.reset();
-    currentState.value = 0;
-}
-
 const onQuestionCompleted = (answer) => {
     quizManager.setAnswer(answer);
+    moveNextQuestion();
+}
+const onQuestionCanceled = (answer) => {
+    moveNextQuestion();
+}
+
+const moveNextQuestion = () => {
     if(quizManager.isLastQuestion()){
-        return onQuizCompleted();
+        return emit('quiz:completed');
     } else{
         quizManager.moveQuestionNext();
     }
 }
-
-const onQuizCompleted = () => {
-    results.value = quizManager.calculateResult();
-    currentState.value = 2;
-    console.log(results.value);
-    return emit('quiz:completed', results.value);
-}
-
 </script>

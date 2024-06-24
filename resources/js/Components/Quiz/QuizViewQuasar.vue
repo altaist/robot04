@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import QuizView from '@/modules/quiz/components/QuizView.vue';
+import QuizView from '@/modules/quiz/components/QuizPage.vue';
 import QuizQuestion from './QuizQuestionQuasar.vue';
 import QuizResults from './QuizResultsQuasar.vue';
 

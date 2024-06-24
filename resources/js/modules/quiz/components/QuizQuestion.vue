@@ -1,7 +1,17 @@
 <template>
     <div>
-        <slot name="content" :content="questionContent"></slot>
-        <slot name="answers" :variants="variants" :setAnswer="setAnswer"></slot>
+        <slot name="content">
+            <div class="q-mt-xl"><div class="q-mt-xl q-pa-md">{{ questionContent }}</div></div>
+        </slot>
+        <slot name="answers">
+            <div class="q-mt-xl q-pa-sm fixed-bottom bg-white">
+                <div class="row q-col-gutter-sm">
+                    <div :class="getColClass(variants)" v-for="variant in variants">
+                        <q-btn :label="variant.txt" @click="setAnswer(variant)" class="full-width" />
+                    </div>
+                </div>
+            </div>
+        </slot>
     </div>
 </template>
 
@@ -26,8 +36,18 @@ const variants = computed(() => {
 });
 
 const setAnswer = (answer) => {
-    console.log(answer);
     emit('question:completed', answer);
 };
+
+const getColClass = (variants) => {
+    let cssClass = 'col-6';
+
+    variants.forEach(element => {
+        if (element.txt.length > 100) {
+            cssClass = 'col-12';
+        }
+    });
+    return cssClass;
+}
 
 </script>

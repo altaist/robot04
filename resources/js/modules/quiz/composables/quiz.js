@@ -1,5 +1,6 @@
 import { computed, ref, toRefs } from 'vue'
 
+
 const Q_TYPE_SINGLE = 0;
 const Q_TYPE_MULTIPLE = 1;
 const Q_TYPE_TEXT = 2;
@@ -17,6 +18,10 @@ const useQuiz = (data) => {
 
     const getQuestions = () => {
         return questions;
+    }
+
+    const getQuizData = () => {
+        return quizData;
     }
 
     const getSetting = (key, def) => {
@@ -201,6 +206,7 @@ const useQuiz = (data) => {
     }
 
     return {
+        getQuizData,
         getCurrentQuestion,
         getCurrentQuestionIndex,
         getTotalQuestionsNum,
@@ -222,13 +228,7 @@ const useQuiz = (data) => {
 }
 
 
-const useQuizTransport = () => {
-    const loadQuiz = () => {
-
-    }
-}
 
 export {
-    useQuiz,
-    useQuizTransport
+    useQuiz
 }
