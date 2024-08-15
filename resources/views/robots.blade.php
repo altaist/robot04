@@ -434,7 +434,7 @@
                     <a class="btn btn-danger btn-lg" href="#register" role="button">Записаться</a>
                 </div>
             </div>
-            <div class="p-3 mb-4">
+            <!--div class="p-3 mb-4">
                 <div class="row">
                     <div class="col-md-4 text-center ">
                         <a href="/storage/summer2024.pdf" target="_blank"><img src="img/summer2024.jpg" height="500px" /></a>
@@ -443,7 +443,7 @@
                         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdXHBnLopvZIjoAP62igCsvNusRPGfnlCknmp5jk6JpurNkTQ/viewform?embedded=true" width="100%"  height="500px" frameborder="0" marginheight="0" marginwidth="0">Загрузка…</iframe>
                     </div>
                 </div>
-            </div>
+            </div-->
 
             <div class="row align-items-md-stretch">
                 <div class="col-md-4 my-1">
